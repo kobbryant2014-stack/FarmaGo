@@ -121,6 +121,7 @@ FarmaGo/
 - Repositorio Git: rama sugerida `adecuacion-rubrica`.
 
 ## Autores Equipo de desarrollo FarmaGo.
-Brady Palma Rodriguez
-Anthony Luck Aliaga Navarro
+* Brady Palma Rodriguez
+* Anthony Luck Aliaga Navarro
+* Heather Belen Paulino Torres
 
