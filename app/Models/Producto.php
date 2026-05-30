@@ -117,13 +117,15 @@ class Producto extends Model
     {
         $stockSql = Lote::stockActualSql('lotes');
 
-        return $query->whereRaw("(
+        return $query->where('stock_minimo', '>', 0)
+            ->whereRaw("(
             SELECT COALESCE(SUM({$stockSql}), 0)
             FROM lotes
             WHERE lotes.producto_id = productos.id
             AND lotes.activo = 1
             AND (lotes.estado IS NULL OR lotes.estado = 'activo')
-        ) < stock_minimo");
+            AND lotes.fecha_vencimiento > CURRENT_DATE
+        ) <= stock_minimo");
     }
 
     public function scopeBusquedaPos($query, string $termino)
@@ -153,6 +155,17 @@ class Producto extends Model
     public function getStockDisponibleAttribute(): float
     {
         return (float) $this->lotes()->disponibles()->get()->sum('stock_actual');
+    }
+
+    public function stockDisponible(): float
+    {
+        return $this->stock_disponible;
+    }
+
+    public function estaEnStockBajo(): bool
+    {
+        return (float) $this->stock_minimo > 0
+            && $this->stockDisponible() <= (float) $this->stock_minimo;
     }
 
     public function tieneStock(float $cantidad = 1): bool

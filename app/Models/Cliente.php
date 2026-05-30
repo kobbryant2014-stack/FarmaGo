@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model
 {
@@ -12,7 +12,18 @@ class Cliente extends Model
 
     protected $fillable = [
         'nombre',
+        'tipo_documento',
         'documento',
+        'nombres',
+        'apellidos',
+        'razon_social',
+        'fecha_nacimiento',
+        'cliente_frecuente',
+        'puntos_fidelizacion',
+        'consentimiento_datos',
+        'estado',
+        'created_by',
+        'updated_by',
         'telefono',
         'email',
         'direccion',
@@ -20,6 +31,9 @@ class Cliente extends Model
     ];
 
     protected $casts = [
+        'fecha_nacimiento' => 'date',
+        'cliente_frecuente' => 'boolean',
+        'consentimiento_datos' => 'boolean',
         'activo' => 'boolean',
     ];
 
@@ -43,7 +57,7 @@ class Cliente extends Model
     // Accessor: Nombre completo con documento
     public function getNombreCompletoAttribute(): string
     {
-        return $this->documento 
+        return $this->documento
             ? "{$this->nombre} ({$this->documento})"
             : $this->nombre;
     }

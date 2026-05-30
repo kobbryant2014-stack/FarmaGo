@@ -157,6 +157,7 @@ class RolePermissionSeeder extends Seeder
 
         $roles = [
             'Admin',
+            'Administrador',
             'Administrador general',
             'Quimico farmaceutico',
             'Cajero',
@@ -176,6 +177,7 @@ class RolePermissionSeeder extends Seeder
         }
 
         Role::findByName('Admin')->syncPermissions($permissions);
+        Role::findByName('Administrador')->syncPermissions($permissions);
         Role::findByName('Administrador general')->syncPermissions($permissions);
 
         Role::findByName('Supervisor')->syncPermissions([

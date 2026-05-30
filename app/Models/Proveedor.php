@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Proveedor extends Model
 {
@@ -14,11 +14,16 @@ class Proveedor extends Model
 
     protected $fillable = [
         'nombre',
+        'tipo_documento',
+        'razon_social',
         'ruc',
         'contacto',
         'telefono',
         'email',
         'direccion',
+        'estado',
+        'created_by',
+        'updated_by',
         'activo',
     ];
 
@@ -43,4 +48,3 @@ class Proveedor extends Model
         return $query->where('activo', true);
     }
 }
-

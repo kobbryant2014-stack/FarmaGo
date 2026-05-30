@@ -18,13 +18,13 @@ return new class extends Migration
                 ->after('anulado_por')
                 ->constrained('ventas')
                 ->onDelete('set null');
-            
+
             // Referencia a la venta original (si esta es una modificación)
             $table->foreignId('venta_original_id')->nullable()
                 ->after('reemplazada_por')
                 ->constrained('ventas')
                 ->onDelete('set null');
-            
+
             // Índices para búsquedas rápidas
             $table->index('reemplazada_por');
             $table->index('venta_original_id');
@@ -37,13 +37,13 @@ return new class extends Migration
                 ->after('anulado_por')
                 ->constrained('compras')
                 ->onDelete('set null');
-            
+
             // Referencia a la compra original (si esta es una modificación)
             $table->foreignId('compra_original_id')->nullable()
                 ->after('reemplazada_por')
                 ->constrained('compras')
                 ->onDelete('set null');
-            
+
             // Índices
             $table->index('reemplazada_por');
             $table->index('compra_original_id');

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->dateTime('fecha_anulacion')->nullable();
             $table->text('motivo_anulacion')->nullable();
             $table->timestamps();
-            
+
             $table->index(['fecha', 'estado']);
             $table->index('user_id');
         });

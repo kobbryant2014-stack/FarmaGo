@@ -12,6 +12,7 @@ class PhaseTwoCatalogSeeder extends Seeder
         $this->seedIdentityDocumentTypes();
         $this->seedInvoiceDocumentTypes();
         $this->seedPaymentMethods();
+        $this->seedBasicProductCatalogs();
         $this->seedDemoCompanyStructure();
     }
 
@@ -85,6 +86,19 @@ class PhaseTwoCatalogSeeder extends Seeder
                 ]
             );
         }
+    }
+
+    private function seedBasicProductCatalogs(): void
+    {
+        DB::table('categorias')->updateOrInsert(
+            ['nombre' => 'Medicamentos generales'],
+            [
+                'descripcion' => 'Categoria inicial para productos farmaceuticos de demostracion',
+                'activo' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
     }
 
     private function seedDemoCompanyStructure(): void

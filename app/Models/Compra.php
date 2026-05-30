@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Compra extends Model
 {
@@ -13,8 +12,19 @@ class Compra extends Model
         'proveedor_id',
         'user_id',
         'anulado_por',
-        'reemplazada_por',        // ✅ NUEVO
-        'compra_original_id',     // ✅ NUEVO
+        'reemplazada_por',
+        'compra_original_id',
+        'empresa_id',
+        'sucursal_id',
+        'tipo_comprobante_proveedor',
+        'serie_comprobante_proveedor',
+        'numero_comprobante_proveedor',
+        'fecha_emision',
+        'fecha_vencimiento',
+        'subtotal',
+        'descuento_total',
+        'igv_total',
+        'estado_pago',
         'total',
         'estado',
         'fecha',
@@ -23,12 +33,16 @@ class Compra extends Model
     ];
 
     protected $casts = [
+        'subtotal' => 'decimal:2',
+        'descuento_total' => 'decimal:2',
+        'igv_total' => 'decimal:2',
         'total' => 'decimal:2',
         'fecha' => 'datetime',
+        'fecha_emision' => 'date',
+        'fecha_vencimiento' => 'date',
         'fecha_anulacion' => 'datetime',
     ];
 
-    // Relaciones existentes
     public function proveedor(): BelongsTo
     {
         return $this->belongsTo(Proveedor::class);
@@ -54,8 +68,6 @@ class Compra extends Model
         return $this->hasMany(Lote::class);
     }
 
-    // ✅ NUEVAS RELACIONES
-    
     public function compraOriginal(): BelongsTo
     {
         return $this->belongsTo(Compra::class, 'compra_original_id');
@@ -71,7 +83,6 @@ class Compra extends Model
         return $this->hasMany(Compra::class, 'compra_original_id');
     }
 
-    // Scopes
     public function scopeRecibidas($query)
     {
         return $query->where('estado', 'recibida');
@@ -98,38 +109,36 @@ class Compra extends Model
             ->whereNull('reemplazada_por');
     }
 
-    // ✅ NUEVOS MÉTODOS
-    
     public function puedeAnularse(): bool
     {
-        return $this->estado === 'recibida' 
+        return $this->estado === 'recibida'
             && is_null($this->reemplazada_por);
     }
 
     public function puedeModificarse(): bool
     {
-        return $this->estado === 'recibida' 
+        return $this->estado === 'recibida'
             && is_null($this->reemplazada_por);
     }
 
     public function esModificacion(): bool
     {
-        return !is_null($this->compra_original_id);
+        return ! is_null($this->compra_original_id);
     }
 
     public function fueModificada(): bool
     {
-        return !is_null($this->reemplazada_por);
+        return ! is_null($this->reemplazada_por);
     }
 
     public function compraActiva()
     {
         $compra = $this;
-        
+
         while ($compra->reemplazada_por) {
             $compra = $compra->reemplazadaPor;
         }
-        
+
         return $compra;
     }
 
@@ -137,18 +146,18 @@ class Compra extends Model
     {
         $cadena = collect([$this]);
         $compra = $this;
-        
+
         while ($compra->compraOriginal) {
             $compra = $compra->compraOriginal;
             $cadena->prepend($compra);
         }
-        
+
         $compra = $this;
         while ($compra->reemplazadaPor) {
             $compra = $compra->reemplazadaPor;
             $cadena->push($compra);
         }
-        
+
         return $cadena->unique('id')->values();
     }
 }

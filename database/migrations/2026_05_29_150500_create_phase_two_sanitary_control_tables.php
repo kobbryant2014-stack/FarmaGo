@@ -83,7 +83,7 @@ return new class extends Migration
 
         Schema::create('movimientos_medicamento_controlado', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('medicamento_controlado_id')->constrained('medicamentos_controlados')->cascadeOnDelete();
+            $table->unsignedBigInteger('medicamento_controlado_id');
             $table->foreignId('lote_id')->constrained('lotes')->restrictOnDelete();
             $table->foreignId('receta_id')->nullable()->constrained('recetas')->nullOnDelete();
             $table->foreignId('venta_id')->nullable()->constrained('ventas')->nullOnDelete();
@@ -96,7 +96,11 @@ return new class extends Migration
             $table->string('estado', 30)->default('valido');
             $table->timestamps();
 
-            $table->index(['medicamento_controlado_id', 'tipo']);
+            $table->foreign('medicamento_controlado_id', 'mmc_medicamento_fk')
+                ->references('id')
+                ->on('medicamentos_controlados')
+                ->cascadeOnDelete();
+            $table->index(['medicamento_controlado_id', 'tipo'], 'mmc_medicamento_tipo_idx');
             $table->index(['lote_id', 'created_at']);
         });
     }

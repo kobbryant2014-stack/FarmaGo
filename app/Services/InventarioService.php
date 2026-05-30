@@ -131,7 +131,13 @@ class InventarioService
 
     public function kardexProducto(int $productoId, ?string $fechaInicio = null, ?string $fechaFin = null)
     {
+        return $this->kardexPorProducto($productoId, $fechaInicio, $fechaFin);
+    }
+
+    public function kardexPorProducto(int $productoId, ?string $fechaInicio = null, ?string $fechaFin = null)
+    {
         $query = MovimientoInventario::with(['lote', 'usuario', 'almacen'])
+            ->validos()
             ->where('producto_id', $productoId);
 
         if ($fechaInicio) {
@@ -148,9 +154,7 @@ class InventarioService
             ->orderBy('id', 'asc')
             ->get()
             ->map(function (MovimientoInventario $movimiento) use (&$stockAcumulado) {
-                if (! ($movimiento->tipo === 'entrada' && $movimiento->origen === 'compra')) {
-                    $stockAcumulado += (float) $movimiento->cantidad;
-                }
+                $stockAcumulado += (float) $movimiento->cantidad;
 
                 $movimiento->stock_acumulado = $stockAcumulado;
 
@@ -160,18 +164,22 @@ class InventarioService
 
     public function kardexLote(int $loteId)
     {
-        $lote = Lote::findOrFail($loteId);
-        $stockAcumulado = (float) $lote->stock_inicial;
+        return $this->kardexPorLote($loteId);
+    }
+
+    public function kardexPorLote(int $loteId)
+    {
+        Lote::findOrFail($loteId);
+        $stockAcumulado = 0;
 
         return MovimientoInventario::with(['usuario', 'almacen'])
+            ->validos()
             ->where('lote_id', $loteId)
             ->orderBy('fecha_movimiento', 'asc')
             ->orderBy('id', 'asc')
             ->get()
             ->map(function (MovimientoInventario $movimiento) use (&$stockAcumulado) {
-                if (! ($movimiento->tipo === 'entrada' && $movimiento->origen === 'compra')) {
-                    $stockAcumulado += (float) $movimiento->cantidad;
-                }
+                $stockAcumulado += (float) $movimiento->cantidad;
 
                 $movimiento->stock_acumulado = $stockAcumulado;
 

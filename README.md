@@ -1,77 +1,159 @@
-# 💊 FarmaGo - Sistema de Gestión Farmacéutica Inteligente
+# FarmaGo - Sistema de Gestion Farmaceutica
 
-**FarmaGo** es una solución integral de gestión de inventario y facturación en efectivo diseñada específicamente para farmacias pequeñas y locales. El sistema no solo organiza el flujo de caja y stock, sino que potencia la administración mediante el uso de **Inteligencia Artificial**
+## Descripción
 
+FarmaGo es una aplicación web profesional desarrollada en Laravel 10 para la gestión integral de farmacias y boticas. Permite administrar inventario por lotes, ventas con metodología FEFO, compras, reportes y control de usuarios.
 
----
+## Problema que resuelve
 
-## ✨ Características Principales
+El sistema soluciona el descontrol de stock, productos vencidos y falta de trazabilidad, automatizando el Kardex y las alertas de reposición.
 
-* **📦 Control de Inventario:** Registro detallado de entradas, salidas y trazabilidad de productos.
-* **💰 Facturación en Efectivo:** Proceso de venta ágil con generación e impresión de facturas.
-* **📊 Dashboard & Reportes:** Visualización clara del estado del negocio y movimientos financieros.
-* **🤖 Asistente IA Administrativo (Chat Interno):**
-    * Consultas en lenguaje natural: *“¿Cuánto vendí hoy?”*, *“¿Qué productos están por agotarse?”*.
-    * **Lupa Inteligente:** Al activar la lupa en un producto, la IA explica qué es y para qué sirve.
-* **🔔 Notificaciones Inteligentes:** Alertas automáticas sobre stock bajo, vencimientos y hitos de ventas.
-* **🛡️ Gestión de Accesos:** Control estricto mediante roles (Admin, Cajero, Inventario).
+## Tecnologias utilizadas
 
----
+- PHP 8.1+
+- Laravel 10
+- Laravel Breeze
+- Spatie Laravel Permission
+- Blade
+- AdminLTE assets
+- Tailwind CSS y Vite
+- MySQL para ambiente local
+- SQLite para testing
+- PHPUnit
+- Laravel Pint
 
-## 🛠️ Tecnologías Utilizadas
+## Requisitos del Sistema
 
-| Capa | Tecnología |
-| :--- | :--- |
-| **Backend** | PHP 8.1, Laravel 10 |
-| **Frontend** | AdminLTE 3, Vite |
-| **Base de Datos** | MySQL (Eloquent ORM) |
-| **Autenticación** | Laravel Breeze |
-| **Seguridad** | Spatie Laravel Permission |
-| **IA** | Integración vía API (OpenAI/Claude) para el Asistente |
+- **Servidor Local:** XAMPP (o similar)
+- **PHP:** 8.1 o superior
+- **Base de Datos:** MySQL / MariaDB
+- **Gestor de Dependencias:** Composer (incluido en el repo)
 
----
+## Instrucciones de Instalación en XAMPP
 
-## 🏗️ Arquitectura del Sistema
+1. **Copiar el proyecto:**
+   Copie la carpeta `FarmaGo` completa dentro de su directorio `C:\xampp\htdocs\`.
 
-El proyecto sigue el patrón **MVC (Modelo-Vista-Controlador)** de Laravel, reforzado con una **Capa de Servicios**:
+2. **Importar la Base de Datos:**
+   - Abra **phpMyAdmin** (http://localhost/phpmyadmin).
+   - Cree una nueva base de datos llamada `farmago`.
+   - Seleccione la base de datos y vaya a la pestaña **Importar**.
+   - Seleccione el archivo ubicado en: `C:\xampp\htdocs\FarmaGo\database\farmago.sql`.
+   - Haga clic en "Importar".
 
-* **Controladores:** Manejan el flujo de las peticiones.
-* **Servicios:** Contienen la lógica de negocio compleja para mantener un código limpio y reutilizable.
-* **Base de Datos:** Estructura flexible preparada para despliegue local o remoto mediante variables de entorno.
+3. **Configuración del entorno (.env):**
+   El archivo `.env` ya está pre-configurado para funcionar con los valores por defecto de XAMPP. Si su usuario de MySQL tiene contraseña, edite las líneas:
+   ```env
+   DB_DATABASE=farmago
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
----
+4. **Acceso al Sistema:**
+   Abra su navegador y acceda a la siguiente URL:
+   http://localhost/FarmaGo/public
 
-## 🚀 Instalación y Configuración
+## Credenciales de Acceso (Prueba)
 
-Sigue estos pasos para poner en marcha el proyecto localmente:
+Para revisar el sistema, utilice las siguientes cuentas:
 
-### 1️⃣ Clonar el repositorio
+| Rol | Correo / Usuario | Contraseña |
+| :--- | :--- | :--- |
+| **Administrador** | admin@farmago.com | admin123 |
+| **Químico Farmacéutico** | quimico@farmago.com | quimico123 |
+| **Cajero** | cajero@farmago.com | cajero123 |
+
+*Nota: El acceso directo por `http://localhost/FarmaGo` puede requerir configuración adicional de Apache. Se recomienda usar la carpeta `/public`.*
+
+## Metodologia agil aplicada
+
+Se documento Scrum en la carpeta `docs/`, incluyendo roles, sprint goal, product backlog, sprint planning, review y retrospectiva.
+
+Documentos principales:
+
+- `docs/01_metodologia_agil_scrum.md`
+- `docs/02_product_backlog.md`
+- `docs/03_sprint_1.md`
+
+## Uso de IA generativa
+
+Se utilizo IA generativa mediante Codex en Visual Studio Code como apoyo para analizar el sistema, detectar riesgos, proponer refactorizaciones, generar vistas base, mejorar validaciones y crear documentacion academica.
+
+Documento:
+
+- `docs/04_uso_ia_generativa.md`
+
+## Manejo de excepciones
+
+El sistema usa validaciones con FormRequest, transacciones en compras y ventas, `try/catch`, `report($e)` y mensajes amigables para el usuario.
+
+Documento:
+
+- `docs/05_manejo_excepciones.md`
+
+## Codigo limpio y refactorizacion
+
+La logica de negocio se organiza en servicios, los controladores coordinan peticiones y las validaciones se ubican en FormRequest. Se centralizo el calculo de ventas y se separo el Kardex por producto y por lote.
+
+Documento:
+
+- `docs/06_codigo_limpio_refactorizacion.md`
+
+## Pruebas
+
+Ejecutar pruebas automatizadas:
+
 ```bash
-git clone [https://github.com/AmsselFern10/FarmaBien.git](https://github.com/AmsselFern10/FarmaBien.git)
-cd FarmaBien
+php artisan test
 ```
 
-### 2️⃣ Instalar dependencias
+Ejecutar validaciones adicionales:
+
 ```bash
-composer install
-npm install
+composer validate
+./vendor/bin/pint --test
+npm run build
 ```
 
-### 3️⃣ Configurar variables de entorno
-```bash
-cp .env.example .env
+Matriz de pruebas funcionales:
+
+- `docs/07_pruebas_funcionales.md`
+
+## Estructura del proyecto
+
+```text
+FarmaGo/
+|-- app/
+|   |-- Http/Controllers/
+|   |-- Http/Requests/
+|   |-- Models/
+|   `-- Services/
+|-- database/
+|   |-- migrations/
+|   `-- seeders/
+|-- docs/
+|-- public/
+|-- resources/
+|   |-- views/
+|   `-- css/
+|-- routes/
+|-- tests/
+|-- composer.json
+|-- package.json
+`-- README.md
 ```
-[!IMPORTANT] Configura tus credenciales de base de datos (DB_DATABASE, DB_USERNAME, DB_PASSWORD) en el archivo .env.
 
-### 4️⃣ Generar la clave y migrar
-```bash
-php artisan key:generate
-php artisan migrate --seed
-```
+## Evidencias para la rubrica
 
-### 5️⃣ Iniciar el sistema
-```bash
-php artisan serve
-npm run dev
+- Aplicacion funcional: rutas, controladores y vistas principales conectadas.
+- Metodologia agil: documentos Scrum en `docs/`.
+- Uso de IA generativa: documento de apoyo con IA.
+- Manejo de excepciones: controladores, servicios y documentacion.
+- Codigo limpio: servicios, FormRequest y refactorizaciones.
+- Informe tecnico: `docs/08_informe_tecnico.md`.
+- Guion de video: `docs/09_guion_video.md`.
+- Repositorio Git: rama sugerida `adecuacion-rubrica`.
 
-Accede en: http://127.0.0.1:8000
+## Autores
+
+Equipo de desarrollo FarmaGo.

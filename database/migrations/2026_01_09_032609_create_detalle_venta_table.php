@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('precio_unitario', 10, 2);
             $table->decimal('subtotal', 10, 2);
             $table->timestamps();
-            
+
             $table->index(['venta_id', 'producto_id']);
             $table->index('lote_id');
         });

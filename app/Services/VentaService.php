@@ -11,30 +11,45 @@ use App\Models\Venta;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 
 class VentaService
 {
+    public function __construct(private readonly VentaCalculatorService $calculator) {}
+
     public function procesarVenta(array $data): Venta
     {
         return DB::transaction(function () use ($data) {
+            if (empty($data['productos']) || ! is_array($data['productos'])) {
+                throw new InvalidArgumentException('La venta debe tener al menos un producto.');
+            }
+
             $this->validarRecetasMedicas($data);
 
             $venta = Venta::create([
                 'cliente_id' => $data['cliente_id'] ?? null,
                 'user_id' => Auth::id(),
                 'total' => 0,
+                'subtotal' => 0,
+                'descuento_total' => 0,
+                'gravado_total' => 0,
+                'exonerado_total' => 0,
+                'inafecto_total' => 0,
+                'igv_total' => 0,
                 'metodo_pago' => $data['metodo_pago'],
                 'estado' => 'completada',
                 'fecha' => now(),
             ]);
 
-            $total = 0;
+            $detallesCalculados = [];
 
             foreach ($data['productos'] as $item) {
-                $total += $this->procesarDetalleVenta($venta, $item);
+                foreach ($this->procesarDetalleVenta($venta, $item) as $detalleCalculado) {
+                    $detallesCalculados[] = $detalleCalculado;
+                }
             }
 
-            $venta->update(['total' => $total]);
+            $venta->update($this->calculator->calcularTotales($detallesCalculados));
 
             if (! empty($data['recetas'])) {
                 $venta->recetas()->attach($data['recetas']);
@@ -49,13 +64,21 @@ class VentaService
         });
     }
 
-    protected function procesarDetalleVenta(Venta $venta, array $item): float
+    protected function procesarDetalleVenta(Venta $venta, array $item): array
     {
+        $cantidadSolicitada = (float) ($item['cantidad'] ?? 0);
+
+        if ($cantidadSolicitada <= 0) {
+            throw new InvalidArgumentException('La cantidad vendida debe ser mayor a cero.');
+        }
+
+        $item['_cantidad_original'] = $cantidadSolicitada;
+
         if (! empty($item['lote_id'])) {
             $lote = Lote::with('producto')->lockForUpdate()->findOrFail($item['lote_id']);
-            $this->validarLoteParaVenta($lote, (float) $item['cantidad']);
+            $this->validarLoteParaVenta($lote, $cantidadSolicitada);
 
-            return $this->registrarDetalleYSalida($venta, $lote, (float) $item['cantidad'], $item);
+            return [$this->registrarDetalleYSalida($venta, $lote, $cantidadSolicitada, $item)];
         }
 
         if (empty($item['producto_id'])) {
@@ -68,10 +91,10 @@ class VentaService
             $item['almacen_id'] ?? null
         );
 
-        $subtotal = 0;
+        $detallesCalculados = [];
 
         foreach ($asignaciones as $asignacion) {
-            $subtotal += $this->registrarDetalleYSalida(
+            $detallesCalculados[] = $this->registrarDetalleYSalida(
                 $venta,
                 $asignacion['lote'],
                 (float) $asignacion['cantidad'],
@@ -79,27 +102,29 @@ class VentaService
             );
         }
 
-        return $subtotal;
+        return $detallesCalculados;
     }
 
-    protected function registrarDetalleYSalida(Venta $venta, Lote $lote, float $cantidad, array $item): float
+    protected function registrarDetalleYSalida(Venta $venta, Lote $lote, float $cantidad, array $item): array
     {
-        $precioUnitario = $item['precio_unitario'] ?? $lote->producto->precio_venta;
-        $subtotal = $cantidad * (float) $precioUnitario;
+        $precioUnitario = (float) ($item['precio_unitario'] ?? $lote->producto->precio_venta);
+        $descuento = $this->calcularDescuentoProporcional($item, $cantidad);
+        $igvPorcentaje = (float) ($item['igv_porcentaje'] ?? $lote->producto->igv_porcentaje ?? 18);
+        $calculo = $this->calculator->calcularDetalle($cantidad, $precioUnitario, $descuento, $igvPorcentaje);
 
         DetalleVenta::create([
             'venta_id' => $venta->id,
             'producto_id' => $lote->producto_id,
             'lote_id' => $lote->id,
             'receta_id' => $item['receta_id'] ?? null,
-            'cantidad' => $cantidad,
-            'precio_unitario' => $precioUnitario,
-            'subtotal' => $subtotal,
+            'cantidad' => $calculo['cantidad'],
+            'precio_unitario' => $calculo['precio_unitario'],
+            'subtotal' => $calculo['subtotal'],
             'unidad_venta' => $item['unidad_venta'] ?? 'unidad',
-            'descuento' => $item['descuento'] ?? 0,
+            'descuento' => $calculo['descuento'],
             'afectacion_tributaria' => $item['afectacion_tributaria'] ?? $lote->producto->afectacion_tributaria ?? '10',
-            'igv' => $item['igv'] ?? 0,
-            'total' => $item['total'] ?? $subtotal,
+            'igv' => $calculo['igv'],
+            'total' => $calculo['total'],
         ]);
 
         MovimientoInventario::create([
@@ -116,7 +141,19 @@ class VentaService
             'estado' => 'valido',
         ]);
 
-        return $subtotal;
+        return $calculo;
+    }
+
+    private function calcularDescuentoProporcional(array $item, float $cantidadAsignada): float
+    {
+        $descuentoLinea = (float) ($item['descuento'] ?? 0);
+        $cantidadOriginal = (float) ($item['_cantidad_original'] ?? $cantidadAsignada);
+
+        if ($descuentoLinea <= 0 || $cantidadOriginal <= 0) {
+            return 0;
+        }
+
+        return round($descuentoLinea * ($cantidadAsignada / $cantidadOriginal), 2);
     }
 
     protected function validarLoteParaVenta(Lote $lote, float $cantidad): void

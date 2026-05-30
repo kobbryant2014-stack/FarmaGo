@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
                 'name' => 'Administrador General',
                 'email' => 'admin@farmago.com',
                 'password' => 'admin123',
-                'roles' => ['Admin', 'Administrador general'],
+                'roles' => ['Admin', 'Administrador', 'Administrador general'],
             ],
             [
                 'name' => 'Quimico Farmaceutico',

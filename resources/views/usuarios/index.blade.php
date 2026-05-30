@@ -34,7 +34,8 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Rol</th>
-                            <th class="text-center" width="150">Acciones</th>
+                            <th>Estado</th>
+                            <th class="text-center" width="220">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,12 +48,32 @@
                                         <span class="badge bg-info">{{ $role->name }}</span>
                                     @endforeach
                                 </td>
+                                <td>
+                                    @if(! $user->active)
+                                        <span class="badge badge-danger">Inactivo</span>
+                                    @elseif($user->locked_until && $user->locked_until->isFuture())
+                                        <span class="badge badge-warning">Bloqueado</span>
+                                    @else
+                                        <span class="badge badge-success">Activo</span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <a href="{{ route('usuarios.edit', $user) }}"
                                        class="btn btn-sm btn-warning"
                                        title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
+
+                                    <form action="{{ route('usuarios.toggle-lock', $user) }}"
+                                          method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button class="btn btn-sm btn-secondary"
+                                                title="Bloquear o desbloquear">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </form>
 
                                     <form action="{{ route('usuarios.destroy', $user) }}"
                                           method="POST"
@@ -69,7 +90,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted">
+                                <td colspan="5" class="text-center text-muted">
                                     No hay usuarios registrados
                                 </td>
                             </tr>
@@ -82,5 +103,9 @@
 
     </div>
 </section>
+
+<div class="px-3">
+    {{ $users->links() }}
+</div>
 
 @endsection

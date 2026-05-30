@@ -2,10 +2,50 @@
    ESTILOS PERSONALIZADOS - SISTEMA FARMAGO
    ============================================ */
 
+:root {
+    --fg-sky: #38bdf8;
+    --fg-sky-dark: #0369a1;
+    --fg-blue: #2563eb;
+    --fg-green: #22c55e;
+    --fg-green-dark: #047857;
+    --fg-mint: #d1fae5;
+    --fg-page: #f0f9ff;
+    --fg-text: #0f172a;
+}
+
+body.farmago-admin {
+    background: var(--fg-page);
+    color: var(--fg-text);
+}
+
+.farmago-admin .content-wrapper {
+    background:
+        linear-gradient(180deg, rgba(224, 242, 254, .95), rgba(240, 253, 244, .92) 46%, #ffffff 100%);
+}
+
+.farmago-admin a {
+    color: var(--fg-sky-dark);
+}
+
 /* ===== NAVBAR PERSONALIZADO ===== */
 .main-header.navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    box-shadow: 0 6px 22px rgba(14, 116, 144, .10);
     transition: all 0.3s ease;
+}
+
+.farmago-navbar {
+    border-bottom: 1px solid rgba(14, 165, 233, .16);
+    background: rgba(255, 255, 255, .96) !important;
+}
+
+.farmago-navbar .nav-link {
+    color: #0f5f8c !important;
+    font-weight: 600;
+}
+
+.farmago-navbar .user-chip {
+    margin-right: .5rem;
+    color: #047857 !important;
 }
 
 .navbar-nav .nav-link {
@@ -13,8 +53,8 @@
 }
 
 .navbar-nav .nav-link:hover {
-    background-color: rgba(0,0,0,.05);
-    border-radius: 5px;
+    background-color: rgba(56, 189, 248, .12);
+    border-radius: 8px;
 }
 
 /* Breadcrumb Tabs mejorados */
@@ -39,8 +79,8 @@
     align-items: center;
     padding: 6px 12px;
     margin: 0 5px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: 1px solid #dee2e6;
+    background: linear-gradient(135deg, #eff6ff 0%, #ecfdf5 100%);
+    border: 1px solid #bae6fd;
     border-radius: 20px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,.05);
@@ -49,7 +89,7 @@
 .breadcrumb-tab:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,.1);
-    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    background: linear-gradient(135deg, #dff6ff 0%, #d1fae5 100%);
 }
 
 .breadcrumb-tab a {
@@ -80,17 +120,49 @@
     transition: all 0.3s ease;
 }
 
+.farmago-sidebar {
+    background: #0284c7 !important;
+}
+
+.farmago-brand {
+    border-bottom: 1px solid rgba(255, 255, 255, .18) !important;
+    color: #ffffff !important;
+}
+
+.brand-logo-mini {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    margin-right: .55rem;
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--fg-green-dark);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .15);
+}
+
 .sidebar .nav-link {
+    margin: 3px 10px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, .88) !important;
     transition: all 0.2s ease;
 }
 
 .sidebar .nav-link:hover {
-    background-color: rgba(255,255,255,.1);
+    background-color: rgba(255,255,255,.16);
+    color: #ffffff !important;
 }
 
 .sidebar .nav-link.active {
-    background-color: rgba(255,255,255,.2);
+    background: #ffffff !important;
+    color: #075985 !important;
     font-weight: 600;
+    box-shadow: 0 10px 22px rgba(8, 47, 73, .18);
+}
+
+.sidebar .nav-link.active .nav-icon {
+    color: var(--fg-green-dark);
 }
 
 .sidebar .nav-treeview .nav-link {
@@ -121,14 +193,15 @@
 
 /* ===== SMALL BOXES (WIDGETS) ===== */
 .small-box {
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    border-radius: 8px;
+    box-shadow: 0 12px 26px rgba(14, 116, 144, .12);
     transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 .small-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 34px rgba(14, 116, 144, .18);
 }
 
 .small-box > .inner {
@@ -152,6 +225,26 @@
     right: 15px;
 }
 
+.stat-box {
+    color: #ffffff !important;
+}
+
+.stat-box-sky {
+    background: #0ea5e9 !important;
+}
+
+.stat-box-green {
+    background: #16a34a !important;
+}
+
+.stat-box-cyan {
+    background: #06b6d4 !important;
+}
+
+.stat-box-blue {
+    background: #2563eb !important;
+}
+
 .small-box .small-box-footer {
     padding: 8px 0;
     text-align: center;
@@ -166,19 +259,22 @@
 
 /* ===== CARDS ===== */
 .card {
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    border: 1px solid rgba(14, 165, 233, .12);
+    border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(14, 116, 144, .08);
     transition: all 0.3s ease;
 }
 
 .card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    box-shadow: 0 14px 34px rgba(14, 116, 144, .12);
 }
 
 .card-header {
-    border-radius: 10px 10px 0 0;
+    border-radius: 8px 8px 0 0;
     font-weight: 600;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%);
+    border-bottom: 1px solid rgba(14, 165, 233, .12);
+    color: #075985;
 }
 
 .card-primary .card-header {
@@ -208,12 +304,13 @@
 }
 
 .table thead th {
-    border-bottom: 2px solid #dee2e6;
+    border-bottom: 2px solid #bae6fd;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 0.5px;
-    background-color: #f8f9fa;
+    background-color: #f0f9ff;
+    color: #075985;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -225,14 +322,14 @@
 }
 
 .table tbody tr:hover {
-    background-color: rgba(0,123,255,.05);
-    box-shadow: inset 4px 0 0 #007bff;
+    background-color: rgba(14, 165, 233, .07);
+    box-shadow: inset 4px 0 0 #22c55e;
     transition: all 0.2s ease;
 }
 
 /* ===== BOTONES ===== */
 .btn {
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 600;
     transition: all 0.3s ease;
     text-transform: uppercase;
@@ -300,9 +397,160 @@
 }
 
 .form-control:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    border-color: var(--fg-green);
+    box-shadow: 0 0 0 0.2rem rgba(34,197,94,.18);
     transform: scale(1.01);
+}
+
+.dashboard-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.35rem 1.5rem;
+    border-radius: 8px;
+    background:
+        linear-gradient(135deg, rgba(14, 165, 233, .94), rgba(34, 197, 94, .90)),
+        url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1200&q=80');
+    background-position: center;
+    background-size: cover;
+    color: #ffffff;
+    box-shadow: 0 18px 36px rgba(14, 116, 144, .18);
+}
+
+.dashboard-hero h1 {
+    margin: .15rem 0 .25rem;
+    font-size: 1.85rem;
+    font-weight: 800;
+}
+
+.dashboard-hero p {
+    margin: 0;
+    max-width: 680px;
+    color: rgba(255, 255, 255, .92);
+    font-weight: 500;
+}
+
+.dashboard-kicker {
+    display: inline-block;
+    padding: .25rem .65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .18);
+    font-size: .75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.dashboard-hero-icon {
+    display: flex;
+    width: 76px;
+    height: 76px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .9);
+    color: var(--fg-green-dark);
+    font-size: 2rem;
+}
+
+.whatsapp-chatbot {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 1050;
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .75rem 1rem;
+    border-radius: 999px;
+    background: #25d366;
+    color: #ffffff !important;
+    font-weight: 800;
+    box-shadow: 0 14px 30px rgba(37, 211, 102, .34);
+}
+
+.whatsapp-chatbot:hover {
+    color: #ffffff !important;
+    background: #16a34a;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.whatsapp-chatbot i {
+    font-size: 1.35rem;
+}
+
+.comprobante-toggle .btn {
+    flex: 1 1 0;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.price-reader-result {
+    min-height: 64px;
+    padding: .75rem 1rem;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.price-reader-amount {
+    color: #0284c7;
+    font-size: 1.45rem;
+    font-weight: 800;
+}
+
+.price-reader-card {
+    border-top: 4px solid #0284c7;
+}
+
+.price-reader-panel {
+    display: flex;
+    min-height: 180px;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    border: 2px dashed #7dd3fc;
+    border-radius: 8px;
+    background: #f0f9ff;
+    color: #0369a1;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.price-reader-panel i {
+    font-size: 2.5rem;
+}
+
+.price-reader-success {
+    justify-content: space-between;
+    border-style: solid;
+    background: #ffffff;
+}
+
+.price-reader-error {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.price-reader-name {
+    color: #0f172a;
+    font-size: 1.45rem;
+    font-weight: 800;
+}
+
+.price-reader-meta {
+    color: #64748b;
+    font-size: .95rem;
+}
+
+.price-reader-total {
+    color: #16a34a;
+    font-size: 3rem;
+    font-weight: 900;
 }
 
 .custom-switch .custom-control-label::before {
@@ -446,5 +694,16 @@
     
     .btn-app i {
         font-size: 24px;
+    }
+
+    .dashboard-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .dashboard-hero-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.4rem;
     }
 }

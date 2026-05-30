@@ -5,25 +5,25 @@ namespace App\Services;
 use App\Models\Compra;
 use App\Models\DetalleCompra;
 use App\Models\Lote;
-use App\Models\Producto;
 use App\Models\MovimientoInventario;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Producto;
 use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CompraService
 {
     /**
      * Registrar una compra completa
-     * 
-     * @param array $data Datos de la compra
-     * @return Compra
+     *
+     * @param  array  $data  Datos de la compra
+     *
      * @throws Exception
      */
     public function registrarCompra(array $data): Compra
     {
         return DB::transaction(function () use ($data) {
-            
+
             // 1. Crear la compra
             $compra = Compra::create([
                 'proveedor_id' => $data['proveedor_id'],
@@ -49,17 +49,16 @@ class CompraService
                 'detalles.producto',
                 'detalles.lote',
                 'proveedor',
-                'lotes'
+                'lotes',
             ]);
         });
     }
 
     /**
      * Procesar un detalle de compra (crear lote y registrar movimiento)
-     * 
-     * @param Compra $compra
-     * @param array $item
+     *
      * @return float Subtotal
+     *
      * @throws Exception
      */
     protected function procesarDetalleCompra(Compra $compra, array $item): float
@@ -115,21 +114,18 @@ class CompraService
 
     /**
      * Anular una compra
-     * 
-     * @param int $compraId
-     * @param string $motivo
-     * @return Compra
+     *
      * @throws Exception
      */
     public function anularCompra(int $compraId, string $motivo): Compra
     {
         return DB::transaction(function () use ($compraId, $motivo) {
-            
+
             // 1. Obtener la compra
             $compra = Compra::with(['detalles', 'lotes'])->findOrFail($compraId);
 
             // 2. Validar que pueda anularse
-            if (!$compra->puedeAnularse()) {
+            if (! $compra->puedeAnularse()) {
                 throw new Exception("La compra #{$compraId} ya está anulada.");
             }
 
@@ -137,8 +133,8 @@ class CompraService
             foreach ($compra->lotes as $lote) {
                 if ($lote->stock_actual < $lote->stock_inicial) {
                     throw new Exception(
-                        "No se puede anular la compra porque el lote {$lote->numero_lote} " .
-                        "ya tiene productos vendidos. Stock inicial: {$lote->stock_inicial}, " .
+                        "No se puede anular la compra porque el lote {$lote->numero_lote} ".
+                        "ya tiene productos vendidos. Stock inicial: {$lote->stock_inicial}, ".
                         "Stock actual: {$lote->stock_actual}"
                     );
                 }
@@ -178,8 +174,7 @@ class CompraService
 
     /**
      * Obtener compras recientes
-     * 
-     * @param int $limite
+     *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function comprasRecientes(int $limite = 10)
@@ -193,8 +188,6 @@ class CompraService
 
     /**
      * Obtener total de compras del mes
-     * 
-     * @return float
      */
     public function totalComprasDelMes(): float
     {
@@ -206,45 +199,42 @@ class CompraService
 
     /**
      * Validar número de lote único para un producto
-     * 
-     * @param int $productoId
-     * @param string $numeroLote
-     * @return bool
      */
     public function esNumeroLoteUnico(int $productoId, string $numeroLote): bool
     {
-        return !Lote::where('producto_id', $productoId)
+        return ! Lote::where('producto_id', $productoId)
             ->where('numero_lote', $numeroLote)
             ->exists();
     }
 
     /**
      * Modificar una compra existente
-     * 
+     *
      * Este método:
      * 1. Anula la compra original (y sus lotes)
      * 2. Crea una nueva compra con los datos corregidos
      * 3. Mantiene la trazabilidad entre ambas
-     * 
-     * @param int $compraId ID de la compra a modificar
-     * @param array $data Nuevos datos de la compra
-     * @param string $motivo Motivo de la modificación
+     *
+     * @param  int  $compraId  ID de la compra a modificar
+     * @param  array  $data  Nuevos datos de la compra
+     * @param  string  $motivo  Motivo de la modificación
      * @return Compra Nueva compra creada
+     *
      * @throws Exception
      */
     public function modificarCompra(int $compraId, array $data, string $motivo): Compra
     {
         return DB::transaction(function () use ($compraId, $data, $motivo) {
-            
+
             // 1. Obtener la compra original
             $compraOriginal = Compra::with(['detalles', 'lotes'])->findOrFail($compraId);
 
             // 2. Validar que pueda modificarse
-            if (!$compraOriginal->puedeModificarse()) {
+            if (! $compraOriginal->puedeModificarse()) {
                 throw new Exception(
-                    "La compra #{$compraId} no puede modificarse. " .
-                    "Estado: {$compraOriginal->estado}, " .
-                    "Reemplazada: " . ($compraOriginal->reemplazada_por ? 'Sí' : 'No')
+                    "La compra #{$compraId} no puede modificarse. ".
+                    "Estado: {$compraOriginal->estado}, ".
+                    'Reemplazada: '.($compraOriginal->reemplazada_por ? 'Sí' : 'No')
                 );
             }
 
@@ -252,8 +242,8 @@ class CompraService
             foreach ($compraOriginal->lotes as $lote) {
                 if ($lote->stock_actual < $lote->stock_inicial) {
                     throw new Exception(
-                        "No se puede modificar la compra porque el lote {$lote->numero_lote} " .
-                        "ya tiene productos vendidos. Stock inicial: {$lote->stock_inicial}, " .
+                        "No se puede modificar la compra porque el lote {$lote->numero_lote} ".
+                        "ya tiene productos vendidos. Stock inicial: {$lote->stock_inicial}, ".
                         "Stock actual: {$lote->stock_actual}"
                     );
                 }
@@ -282,7 +272,7 @@ class CompraService
             $nuevaCompra = $this->registrarCompra($data);
 
             // 6. Establecer relaciones de trazabilidad
-            
+
             // Marcar la original como anulada y reemplazada
             $compraOriginal->update([
                 'estado' => 'anulada',
@@ -303,21 +293,20 @@ class CompraService
                 'detalles.lote',
                 'proveedor',
                 'lotes',
-                'compraOriginal'
+                'compraOriginal',
             ]);
         });
     }
 
     /**
      * Obtener historial de modificaciones de una compra
-     * 
-     * @param int $compraId
+     *
      * @return \Illuminate\Support\Collection
      */
     public function historialModificacionesCompra(int $compraId)
     {
         $compra = Compra::findOrFail($compraId);
-        
+
         return $compra->cadenaModificaciones()->map(function ($c, $index) {
             return [
                 'version' => $index + 1,

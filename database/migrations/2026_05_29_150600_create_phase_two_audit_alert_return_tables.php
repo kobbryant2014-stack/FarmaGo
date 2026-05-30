@@ -33,16 +33,21 @@ return new class extends Migration
             $table->string('estado', 30)->default('pendiente');
             $table->timestamps();
 
-            $table->index(['almacen_origen_id', 'almacen_destino_id']);
+            $table->index(['almacen_origen_id', 'almacen_destino_id'], 'trans_inv_almacenes_idx');
         });
 
         Schema::create('transferencia_inventario_detalles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transferencia_inventario_id')->constrained('transferencias_inventario')->cascadeOnDelete();
+            $table->unsignedBigInteger('transferencia_inventario_id');
             $table->foreignId('producto_id')->constrained('productos')->restrictOnDelete();
             $table->foreignId('lote_id')->constrained('lotes')->restrictOnDelete();
             $table->decimal('cantidad', 12, 3);
             $table->timestamps();
+
+            $table->foreign('transferencia_inventario_id', 'trans_inv_det_trans_fk')
+                ->references('id')
+                ->on('transferencias_inventario')
+                ->cascadeOnDelete();
         });
 
         Schema::create('devoluciones', function (Blueprint $table) {

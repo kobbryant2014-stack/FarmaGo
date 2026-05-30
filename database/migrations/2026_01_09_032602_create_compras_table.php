@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('compras', function (Blueprint $table) {
+        Schema::create('compras', function (Blueprint $table) {
             $table->id();
             $table->foreignId('proveedor_id')->constrained('proveedores');
             $table->foreignId('user_id')->constrained('users');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->dateTime('fecha_anulacion')->nullable();
             $table->text('motivo_anulacion')->nullable();
             $table->timestamps();
-            
+
             $table->index(['fecha', 'estado']);
             $table->index('proveedor_id');
         });

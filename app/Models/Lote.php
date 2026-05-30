@@ -64,6 +64,7 @@ class Lote extends Model
             END)
             FROM movimientos_inventario mi
             WHERE mi.lote_id = {$tableAlias}.id
+            AND (mi.estado IS NULL OR mi.estado = 'valido')
         ), 0)";
     }
 
@@ -74,6 +75,10 @@ class Lote extends Model
                 $query->where('tipo', '!=', 'entrada')
                     ->orWhere('origen', '!=', 'compra')
                     ->orWhereNull('origen');
+            })
+            ->where(function ($query) {
+                $query->whereNull('estado')
+                    ->orWhere('estado', 'valido');
             })
             ->sum('cantidad');
 
@@ -98,6 +103,11 @@ class Lote extends Model
             ->when($almacenId, fn ($query) => $query->where('almacen_id', $almacenId))
             ->whereRaw("{$stockSql} > 0")
             ->whereHas('producto', fn ($query) => $query->vendibles());
+    }
+
+    public function scopeConStockDisponible($query, ?int $almacenId = null)
+    {
+        return $query->disponibles($almacenId);
     }
 
     public function scopeVencidos($query)

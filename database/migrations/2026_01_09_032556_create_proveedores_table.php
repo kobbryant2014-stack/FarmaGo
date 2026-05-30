@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('proveedores', function (Blueprint $table) {
+        Schema::create('proveedores', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 150);
             $table->string('ruc', 25)->unique();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('activo')->default(true);
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('activo');
         });
     }

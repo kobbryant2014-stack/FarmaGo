@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('productos', function (Blueprint $table) {
+        Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('codigo_barra', 50)->unique()->nullable();
             $table->string('nombre', 150);
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('activo')->default(true);
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index(['categoria_id', 'activo']);
             $table->index('nombre');
         });

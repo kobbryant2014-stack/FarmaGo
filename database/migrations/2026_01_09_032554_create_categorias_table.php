@@ -9,8 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-  
-          public function up(): void
+    public function up(): void
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
@@ -19,13 +18,11 @@ return new class extends Migration
             $table->boolean('activo')->default(true);
             $table->timestamps();
             $table->softDeletes();
-            
+
             // Índices para mejorar performance
             $table->index(['activo', 'nombre']);
         });
     }
-
-    
 
     /**
      * Reverse the migrations.
