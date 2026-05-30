@@ -17,22 +17,9 @@ El sistema soluciona el descontrol de stock, productos vencidos y falta de traza
 - Blade
 - AdminLTE assets
 - Tailwind CSS y Vite
-- MySQL para ambiente local
-- SQLite para testing
+- SQLite
 - PHPUnit
 - Laravel Pint
-
-## Requisitos del Sistema
-
-- **Servidor Local:** XAMPP (o similar)
-- **PHP:** 8.1 o superior
-- **Base de Datos:** MySQL / MariaDB
-- **Gestor de Dependencias:** Composer (incluido en el repo)
-
-## Instrucciones de Instalación en XAMPP
-
-1. **Copiar el proyecto:**
-   Copie la carpeta `FarmaGo` completa dentro de su directorio `C:\xampp\htdocs\`.
 
 2. **Importar la Base de Datos:**
    - Abra **phpMyAdmin** (http://localhost/phpmyadmin).
@@ -41,27 +28,9 @@ El sistema soluciona el descontrol de stock, productos vencidos y falta de traza
    - Seleccione el archivo ubicado en: `C:\xampp\htdocs\FarmaGo\database\farmago.sql`.
    - Haga clic en "Importar".
 
-3. **Configuración del entorno (.env):**
-   El archivo `.env` ya está pre-configurado para funcionar con los valores por defecto de XAMPP. Si su usuario de MySQL tiene contraseña, edite las líneas:
-   ```env
-   DB_DATABASE=farmago
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-
 4. **Acceso al Sistema:**
    Abra su navegador y acceda a la siguiente URL:
    http://localhost/FarmaGo/public
-
-## Credenciales de Acceso (Prueba)
-
-Para revisar el sistema, utilice las siguientes cuentas:
-
-| Rol | Correo / Usuario | Contraseña |
-| :--- | :--- | :--- |
-| **Administrador** | admin@farmago.com | admin123 |
-| **Químico Farmacéutico** | quimico@farmago.com | quimico123 |
-| **Cajero** | cajero@farmago.com | cajero123 |
 
 *Nota: El acceso directo por `http://localhost/FarmaGo` puede requerir configuración adicional de Apache. Se recomienda usar la carpeta `/public`.*
 
@@ -77,11 +46,8 @@ Documentos principales:
 
 ## Uso de IA generativa
 
-Se utilizo IA generativa mediante Codex en Visual Studio Code como apoyo para analizar el sistema, detectar riesgos, proponer refactorizaciones, generar vistas base, mejorar validaciones y crear documentacion academica.
+Se utilizo IA generativa como apoyo para analizar el sistema, detectar riesgos, proponer refactorizaciones, generar vistas base, mejorar validaciones.
 
-Documento:
-
-- `docs/04_uso_ia_generativa.md`
 
 ## Manejo de excepciones
 
@@ -154,6 +120,7 @@ FarmaGo/
 - Guion de video: `docs/09_guion_video.md`.
 - Repositorio Git: rama sugerida `adecuacion-rubrica`.
 
-## Autores
+## Autores Equipo de desarrollo FarmaGo.
+Brady Palma Rodriguez
+Anthony Luck Aliaga Navarro
 
-Equipo de desarrollo FarmaGo.
