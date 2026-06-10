@@ -61,6 +61,11 @@ class Venta extends Model
         return $this->hasMany(DetalleVenta::class);
     }
 
+    public function comprobantesElectronicos(): HasMany
+    {
+        return $this->hasMany(ComprobanteElectronico::class);
+    }
+
     public function recetas(): BelongsToMany
     {
         return $this->belongsToMany(Receta::class, 'venta_receta')

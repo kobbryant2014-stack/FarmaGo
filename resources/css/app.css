@@ -1,3 +1,214 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .login-shell {
+        background:
+            radial-gradient(circle at 18% 18%, rgba(34, 197, 94, .18), transparent 34%),
+            radial-gradient(circle at 88% 8%, rgba(14, 165, 233, .18), transparent 28%),
+            #f8fafc;
+    }
+
+    .login-photo {
+        background-image:
+            linear-gradient(115deg, rgba(8, 47, 73, .86), rgba(14, 116, 144, .76) 42%, rgba(4, 120, 87, .78)),
+            url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=80');
+        background-position: center;
+        background-size: cover;
+    }
+
+    .login-photo::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background-image:
+            linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px);
+        background-size: 46px 46px;
+        mask-image: linear-gradient(90deg, rgba(0, 0, 0, .7), transparent);
+        opacity: .36;
+    }
+
+    .login-orb {
+        position: absolute;
+        width: 18rem;
+        height: 18rem;
+        border-radius: 999px;
+        filter: blur(42px);
+        opacity: .42;
+        pointer-events: none;
+    }
+
+    .login-orb-one {
+        top: 9%;
+        right: 10%;
+        background: #22c55e;
+    }
+
+    .login-orb-two {
+        bottom: 12%;
+        left: 12%;
+        background: #38bdf8;
+    }
+
+    .login-brand-panel {
+        z-index: 1;
+    }
+
+    .farmago-app-logo {
+        padding: 0;
+        border: 0;
+        border-radius: .65rem;
+        background: transparent;
+        box-shadow: none;
+        filter: drop-shadow(0 6px 12px rgba(15, 23, 42, .2));
+    }
+
+    .login-logo-link {
+        transform-style: preserve-3d;
+        transition: transform .28s ease, box-shadow .28s ease;
+    }
+
+    .login-logo-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 24px 44px rgba(8, 47, 73, .24);
+    }
+
+    .login-logo-mark {
+        position: relative;
+        display: grid;
+        width: 4rem;
+        height: 4rem;
+        place-items: center;
+        border-radius: 1.35rem;
+        background:
+            linear-gradient(145deg, rgba(236, 253, 245, .95), rgba(224, 242, 254, .96));
+        color: #059669;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, .92),
+            0 18px 34px rgba(4, 120, 87, .22);
+    }
+
+    .login-logo-mark::before {
+        position: absolute;
+        inset: .45rem;
+        content: "";
+        border-radius: 1rem;
+        border: 1px solid rgba(16, 185, 129, .22);
+    }
+
+    .login-logo-ring {
+        position: absolute;
+        inset: -.45rem;
+        border: 1px solid rgba(167, 243, 208, .62);
+        border-radius: 1.7rem;
+        box-shadow: 0 0 28px rgba(45, 212, 191, .28);
+    }
+
+    .login-logo-svg {
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 9px 14px rgba(4, 120, 87, .18));
+    }
+
+    .login-logo-spark {
+        position: absolute;
+        width: .48rem;
+        height: .48rem;
+        border-radius: 999px;
+        background: #67e8f9;
+        box-shadow: 0 0 18px rgba(103, 232, 249, .75);
+        opacity: .45;
+    }
+
+    .login-logo-spark-one {
+        top: .28rem;
+        right: .34rem;
+    }
+
+    .login-logo-spark-two {
+        bottom: .34rem;
+        left: .38rem;
+        background: #86efac;
+        box-shadow: 0 0 18px rgba(134, 239, 172, .72);
+    }
+
+    .login-logo-name {
+        letter-spacing: 0;
+    }
+
+    .login-form-section {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-form-section::before {
+        position: absolute;
+        top: 8%;
+        right: -6rem;
+        width: 18rem;
+        height: 18rem;
+        content: "";
+        border-radius: 999px;
+        background: rgba(34, 197, 94, .11);
+    }
+
+    .login-form-wrap {
+        position: relative;
+        z-index: 1;
+    }
+
+    .login-card {
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(14px);
+    }
+
+    .login-card::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background: linear-gradient(135deg, rgba(14, 165, 233, .08), transparent 40%, rgba(34, 197, 94, .08));
+        pointer-events: none;
+    }
+
+    .login-field,
+    .login-options,
+    .login-submit {
+        position: relative;
+        z-index: 1;
+    }
+
+    .login-submit {
+        transform-origin: center;
+        transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+
+    .login-submit:hover {
+        transform: translateY(-2px) scale(1.01);
+        filter: saturate(1.08);
+        box-shadow: 0 18px 32px rgba(16, 185, 129, .24);
+    }
+
+    .login-submit:active {
+        transform: translateY(0) scale(.99);
+    }
+
+    @media (max-width: 640px) {
+        .login-logo-link {
+            align-items: flex-start;
+            border-radius: 1rem;
+        }
+
+        .login-logo-mark {
+            width: 3.35rem;
+            height: 3.35rem;
+            border-radius: 1.1rem;
+        }
+
+        .login-logo-tagline {
+            letter-spacing: .11em;
+        }
+    }
+}

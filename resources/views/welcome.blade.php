@@ -46,25 +46,25 @@
             .brand {
                 display: inline-flex;
                 align-items: center;
-                gap: 12px;
-                font-size: 22px;
-                font-weight: 800;
-                letter-spacing: 0;
+                min-height: 72px;
             }
 
             .brand-mark {
-                width: 42px;
-                height: 42px;
-                border-radius: 12px;
-                display: grid;
-                place-items: center;
-                background: #e3f6ec;
-                color: var(--brand);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                border: 0;
+                border-radius: 18px;
+                background: transparent;
+                box-shadow: none;
             }
 
-            .brand-mark svg {
-                width: 26px;
-                height: 26px;
+            .brand-logo {
+                display: block;
+                width: min(220px, 62vw);
+                height: auto;
+                filter: drop-shadow(0 8px 18px rgba(15, 23, 42, 0.16));
             }
 
             .content {
@@ -171,14 +171,9 @@
         <div class="page">
             <main class="main">
                 <div class="brand">
-                    <span class="brand-mark" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none">
-                            <path d="M14.8 3.8a4.7 4.7 0 0 1 1.7 6.4l-4.3 7.4a4.7 4.7 0 1 1-8.1-4.7l4.3-7.4a4.7 4.7 0 0 1 6.4-1.7Z" stroke="currentColor" stroke-width="2"/>
-                            <path d="M7.2 10.2 13 13.6" stroke="currentColor" stroke-width="2"/>
-                            <path d="M18 14v6M15 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
+                    <span class="brand-mark">
+                        <img src="{{ asset('images/farmago-logo.png') }}" alt="{{ config('app.name', 'FarmaGo') }}" class="brand-logo">
                     </span>
-                    {{ config('app.name', 'FarmaGo') }}
                 </div>
 
                 <section class="content" aria-labelledby="title">

@@ -13,10 +13,25 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @stack('styles')
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen bg-sky-50">
-            {{ $slot }}
+            @if (request()->routeIs('login'))
+                {{ $slot }}
+            @else
+                <div class="flex min-h-screen flex-col items-center justify-center px-6 py-10">
+                    <a href="/" class="mb-8 inline-flex items-center justify-center" aria-label="Ir al inicio de FarmaGo">
+                        <x-application-logo class="h-24 w-56" />
+                    </a>
+
+                    <div class="w-full max-w-md rounded-2xl border border-sky-100 bg-white/95 p-6 shadow-2xl shadow-sky-900/10">
+                        {{ $slot }}
+                    </div>
+                </div>
+            @endif
         </div>
+
+        @stack('scripts')
     </body>
 </html>

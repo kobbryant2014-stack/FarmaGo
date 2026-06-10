@@ -33,6 +33,10 @@
                     </thead>
                     <tbody>
                         @forelse($ventas as $venta)
+                            @php
+                                $boleta = $venta->comprobantesElectronicos->firstWhere('tipo_comprobante', '03');
+                                $factura = $venta->comprobantesElectronicos->firstWhere('tipo_comprobante', '01');
+                            @endphp
                             <tr>
                                 <td>{{ $venta->id }}</td>
                                 <td>{{ $venta->cliente->nombre ?? 'Publico general' }}</td>
@@ -42,6 +46,35 @@
                                 <td class="text-right">
                                     <a class="btn btn-sm btn-info" href="{{ route('ventas.show', $venta) }}"><i class="fas fa-eye"></i></a>
                                     <a class="btn btn-sm btn-secondary" href="{{ route('ventas.comprobante', $venta) }}"><i class="fas fa-print"></i></a>
+                                    @if($venta->estado === 'completada')
+                                        @if($boleta)
+                                            <a class="btn btn-sm btn-success" href="{{ route('facturacion.show', $boleta) }}" title="Ver boleta electronica">
+                                                <i class="fas fa-file-invoice-dollar"></i> Boleta
+                                            </a>
+                                        @else
+                                            <form class="d-inline" method="POST" action="{{ route('ventas.facturacion.emitir', $venta) }}">
+                                                @csrf
+                                                <input type="hidden" name="tipo_comprobante" value="03">
+                                                <button class="btn btn-sm btn-success" title="Generar boleta electronica">
+                                                    <i class="fas fa-file-invoice-dollar"></i> Boleta
+                                                </button>
+                                            </form>
+                                        @endif
+
+                                        @if($factura)
+                                            <a class="btn btn-sm btn-primary" href="{{ route('facturacion.show', $factura) }}" title="Ver factura electronica">
+                                                <i class="fas fa-file-invoice"></i> Factura
+                                            </a>
+                                        @else
+                                            <form class="d-inline" method="POST" action="{{ route('ventas.facturacion.emitir', $venta) }}">
+                                                @csrf
+                                                <input type="hidden" name="tipo_comprobante" value="01">
+                                                <button class="btn btn-sm btn-primary" title="Generar factura electronica">
+                                                    <i class="fas fa-file-invoice"></i> Factura
+                                                </button>
+                                            </form>
+                                        @endif
+                                    @endif
                                     @if($venta->puedeAnularse())
                                         <form class="d-inline" method="POST" action="{{ route('ventas.destroy', $venta) }}">
                                             @csrf

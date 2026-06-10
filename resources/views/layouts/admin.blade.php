@@ -21,6 +21,11 @@
                     <i class="fas fa-bars"></i>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('dashboard') }}" class="nav-link farmago-navbar-logo-link" aria-label="Ir al panel de FarmaGo">
+                    <img src="{{ asset('images/farmago-logo.png') }}" alt="{{ config('app.name', 'FarmaGo') }}" class="farmago-navbar-logo">
+                </a>
+            </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
             </li>
@@ -43,8 +48,8 @@
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4 farmago-sidebar">
         <a href="{{ route('dashboard') }}" class="brand-link farmago-brand">
-            <span class="brand-logo-mini"><i class="fas fa-prescription-bottle-alt"></i></span>
-            <span class="brand-text font-weight-bold">FarmaGo</span>
+            <img src="{{ asset('images/farmago-logo.png') }}" alt="{{ config('app.name', 'FarmaGo') }}" class="farmago-sidebar-logo">
+            <span class="brand-text font-weight-bold sr-only">FarmaGo</span>
         </a>
 
         <div class="sidebar">

@@ -48,6 +48,27 @@ body.farmago-admin {
     color: #047857 !important;
 }
 
+.farmago-navbar-logo-link {
+    display: inline-flex !important;
+    align-items: center;
+    min-height: 2.5rem;
+    padding-top: .25rem !important;
+    padding-bottom: .25rem !important;
+}
+
+.farmago-navbar-logo {
+    display: block;
+    width: 112px;
+    max-height: 38px;
+    object-fit: contain;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    box-shadow: none;
+    filter: drop-shadow(0 5px 10px rgba(15, 23, 42, .18));
+}
+
 .navbar-nav .nav-link {
     transition: all 0.2s ease;
 }
@@ -125,21 +146,41 @@ body.farmago-admin {
 }
 
 .farmago-brand {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 74px;
+    padding: .55rem .7rem !important;
     border-bottom: 1px solid rgba(255, 255, 255, .18) !important;
     color: #ffffff !important;
 }
 
-.brand-logo-mini {
-    display: inline-flex;
-    width: 34px;
-    height: 34px;
-    align-items: center;
-    justify-content: center;
-    margin-right: .55rem;
+.farmago-sidebar-logo {
+    display: block;
+    width: 176px;
+    max-width: 100%;
+    max-height: 58px;
+    object-fit: contain;
+    padding: 0;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    box-shadow: none;
+    filter: drop-shadow(0 8px 14px rgba(8, 47, 73, .24));
+}
+
+.sidebar-mini.sidebar-collapse .farmago-brand {
+    min-height: 62px;
+    padding: .5rem .45rem !important;
+}
+
+.sidebar-mini.sidebar-collapse .farmago-sidebar-logo {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    object-fit: cover;
+    object-position: top center;
     border-radius: 10px;
-    background: #ffffff;
-    color: var(--fg-green-dark);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, .15);
 }
 
 .sidebar .nav-link {
@@ -403,6 +444,7 @@ body.farmago-admin {
 }
 
 .dashboard-hero {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -413,9 +455,22 @@ body.farmago-admin {
         linear-gradient(135deg, rgba(14, 165, 233, .94), rgba(34, 197, 94, .90)),
         url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1200&q=80');
     background-position: center;
-    background-size: cover;
+    background-size: 120% 120%, cover;
     color: #ffffff;
     box-shadow: 0 18px 36px rgba(14, 116, 144, .18);
+    overflow: hidden;
+    isolation: isolate;
+    animation: dashboardHeroDrift 14s ease-in-out infinite alternate;
+}
+
+.dashboard-hero::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, .18) 42%, transparent 72%);
+    transform: translateX(-120%);
+    animation: dashboardHeroShine 5.5s ease-in-out infinite;
 }
 
 .dashboard-hero h1 {
@@ -424,11 +479,22 @@ body.farmago-admin {
     font-weight: 800;
 }
 
+.dashboard-title-motion {
+    display: inline-block;
+    text-shadow: 0 8px 22px rgba(8, 47, 73, .18);
+    animation: dashboardTitleIn .75s cubic-bezier(.2, .8, .2, 1) both,
+        dashboardTitlePulse 3.8s ease-in-out 1.1s infinite;
+}
+
 .dashboard-hero p {
     margin: 0;
     max-width: 680px;
     color: rgba(255, 255, 255, .92);
     font-weight: 500;
+}
+
+.dashboard-copy-motion {
+    animation: dashboardCopyIn .75s ease-out .18s both;
 }
 
 .dashboard-kicker {
@@ -439,6 +505,7 @@ body.farmago-admin {
     font-size: .75rem;
     font-weight: 800;
     text-transform: uppercase;
+    animation: dashboardKickerIn .55s ease-out both;
 }
 
 .dashboard-hero-icon {
@@ -452,6 +519,8 @@ body.farmago-admin {
     background: rgba(255, 255, 255, .9);
     color: var(--fg-green-dark);
     font-size: 2rem;
+    animation: dashboardIconFloat 3.8s ease-in-out infinite;
+    box-shadow: 0 14px 30px rgba(8, 47, 73, .16);
 }
 
 .whatsapp-chatbot {
@@ -659,6 +728,88 @@ body.farmago-admin {
 
 .animate-fade-in {
     animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes dashboardHeroDrift {
+    from {
+        background-position: 0% 50%, center;
+    }
+    to {
+        background-position: 100% 50%, center;
+    }
+}
+
+@keyframes dashboardHeroShine {
+    0%, 58% {
+        transform: translateX(-120%);
+    }
+    100% {
+        transform: translateX(120%);
+    }
+}
+
+@keyframes dashboardKickerIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes dashboardTitleIn {
+    from {
+        opacity: 0;
+        transform: translateX(-18px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes dashboardTitlePulse {
+    0%, 100% {
+        transform: translateY(0);
+        text-shadow: 0 8px 22px rgba(8, 47, 73, .18);
+    }
+    50% {
+        transform: translateY(-2px);
+        text-shadow: 0 12px 28px rgba(255, 255, 255, .22);
+    }
+}
+
+@keyframes dashboardCopyIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes dashboardIconFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-6px) rotate(1deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-hero,
+    .dashboard-hero::after,
+    .dashboard-kicker,
+    .dashboard-title-motion,
+    .dashboard-copy-motion,
+    .dashboard-hero-icon {
+        animation: none;
+    }
 }
 
 /* ===== UTILIDADES ===== */

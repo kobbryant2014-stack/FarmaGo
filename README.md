@@ -21,18 +21,36 @@ El sistema soluciona el descontrol de stock, productos vencidos y falta de traza
 - PHPUnit
 - Laravel Pint
 
-2. **Importar la Base de Datos:**
-   - Abra **phpMyAdmin** (http://localhost/phpmyadmin).
-   - Cree una nueva base de datos llamada `farmago`.
-   - Seleccione la base de datos y vaya a la pestaña **Importar**.
-   - Seleccione el archivo ubicado en: `C:\xampp\htdocs\FarmaGo\database\farmago.sql`.
-   - Haga clic en "Importar".
+2. **Configuración local en Windows:**
+   - El proyecto está configurado para usar SQLite localmente.
+   - Verifica que `.env` contenga:
+     ```text
+     DB_CONNECTION=sqlite
+     DB_DATABASE=C:\xampp\htdocs\FarmaGo\database\database.sqlite
+     ```
+   - Si no existe `.env`, copia `.env.example` a `.env`.
 
-4. **Acceso al Sistema:**
-   Abra su navegador y acceda a la siguiente URL:
-   http://localhost/FarmaGo/public
+3. **Instalar dependencias PHP:**
+   ```powershell
+   cd C:\xampp\htdocs\FarmaGo
+   composer install --no-interaction --prefer-dist
+   ```
 
-*Nota: El acceso directo por `http://localhost/FarmaGo` puede requerir configuración adicional de Apache. Se recomienda usar la carpeta `/public`.*
+4. **Ejecutar migraciones y limpiar caches:**
+   ```powershell
+   php artisan migrate
+   php artisan optimize:clear
+   ```
+
+5. **Acceso al sistema:**
+   - Inicia el servidor con:
+     ```powershell
+     php artisan serve --host=127.0.0.1 --port=8000
+     ```
+   - Abre en el navegador:
+     `http://127.0.0.1:8000`
+
+> El proyecto también puede ejecutarse dentro de XAMPP, pero para este entorno local la configuración SQLite ya está lista.
 
 ## Metodologia agil aplicada
 
@@ -108,6 +126,8 @@ FarmaGo/
 |-- package.json
 `-- README.md
 ```
+
+- Guía de ejecución local: `INSTRUCCIONES_EJECUCION_LOCAL.md`
 
 ## Evidencias para la rubrica
 

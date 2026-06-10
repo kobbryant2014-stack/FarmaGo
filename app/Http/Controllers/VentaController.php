@@ -17,7 +17,7 @@ class VentaController extends Controller
 {
     public function index(Request $request): View
     {
-        $query = Venta::with(['cliente', 'usuario'])->latest('fecha');
+        $query = Venta::with(['cliente', 'usuario', 'comprobantesElectronicos'])->latest('fecha');
 
         if ($request->filled('fecha')) {
             $query->whereDate('fecha', $request->date('fecha'));

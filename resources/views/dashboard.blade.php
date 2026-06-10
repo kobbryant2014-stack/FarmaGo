@@ -8,8 +8,8 @@
         <div class="dashboard-hero">
             <div>
                 <span class="dashboard-kicker">Panel principal</span>
-                <h1>Dashboard FarmaGo</h1>
-                <p>Resumen de ventas, inventario y vencimientos para tomar decisiones rapido.</p>
+                <h1 class="dashboard-title-motion">Dashboard FarmaGo</h1>
+                <p class="dashboard-copy-motion">Resumen de ventas, inventario y vencimientos para tomar decisiones rapido.</p>
             </div>
             <div class="dashboard-hero-icon">
                 <i class="fas fa-clinic-medical"></i>
