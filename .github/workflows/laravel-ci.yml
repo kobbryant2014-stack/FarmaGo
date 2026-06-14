@@ -2,27 +2,23 @@ name: Laravel CI
 
 on:
   push:
-    branches:
-      - main
-      - develop
+    branches: [ main, develop ]
   pull_request:
-    branches:
-      - main
-      - develop
+    branches: [ main, develop ]
 
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Clonar repositorio
         uses: actions/checkout@v4
 
-      - name: Setup PHP
+      - name: Configurar PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          extensions: mbstring, dom, fileinfo, mysql, sqlite, pdo_sqlite
+          extensions: mbstring, pdo, sqlite, pdo_sqlite, openssl, tokenizer, xml, ctype, json, bcmath, fileinfo
           coverage: none
 
       - name: Setup Node.js
@@ -31,34 +27,33 @@ jobs:
           node-version: '20'
           cache: npm
 
-      - name: Install Composer dependencies
+      - name: Instalar dependencias PHP
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Prepare environment
-        run: |
-          cp .env.example .env
-          php artisan key:generate --ansi
+      - name: Copiar archivo de entorno
+        run: cp .env.example .env
 
-      - name: Prepare SQLite database
+      - name: Generar APP_KEY
+        run: php artisan key:generate
+
+      - name: Preparar base SQLite
         run: |
           mkdir -p database
           touch database/database.sqlite
-          php artisan config:clear
 
-      - name: Run migrations
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
+      - name: Configurar entorno de pruebas
+        run: |
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=${{ github.workspace }}/database/database.sqlite" >> .env
+
+      - name: Ejecutar migraciones
         run: php artisan migrate --force
 
-      - name: Install NPM dependencies
+      - name: Instalar dependencias frontend
         run: npm install
 
-      - name: Build assets
+      - name: Compilar frontend
         run: npm run build
 
-      - name: Run Laravel tests
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
+      - name: Ejecutar pruebas Laravel
         run: php artisan test

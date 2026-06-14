@@ -27,12 +27,16 @@ En Windows se puede copiar `.env.example` manualmente si `cp` no esta disponible
 
 La rama estable es `main` y la rama de integracion es `develop`.
 
+## Crear `develop`
+
 ```bash
 git checkout main
 git pull origin main
 git checkout -b develop
 git push -u origin develop
 ```
+
+## Crear ramas `feature/*`
 
 Para una funcionalidad:
 
@@ -42,6 +46,8 @@ git pull origin develop
 git checkout -b feature/ventas-fefo
 ```
 
+## Crear release
+
 Para preparar una version:
 
 ```bash
@@ -49,6 +55,8 @@ git checkout develop
 git pull origin develop
 git checkout -b release/v1.0.0
 ```
+
+## Crear hotfix
 
 Para una correccion urgente:
 

@@ -1,6 +1,22 @@
 # Pull Requests
 
-Los Pull Requests son la evidencia principal de colaboracion en GitHub. En FarmaGo se usan para revisar cambios, ejecutar CI/CD y documentar decisiones antes de fusionar ramas.
+Un Pull Request es una solicitud de integracion de cambios entre ramas de GitHub. En FarmaGo se usa para revisar codigo, documentar la funcionalidad desarrollada, ejecutar GitHub Actions y dejar evidencia de colaboracion antes de fusionar cambios.
+
+## Flujo correcto
+
+```text
+rama local -> commit -> push -> Pull Request -> revision -> merge
+```
+
+El flujo recomendado es:
+
+1. Crear una rama local desde `develop` o `main`.
+2. Realizar cambios en el modulo correspondiente.
+3. Registrar commits convencionales.
+4. Subir la rama con `git push`.
+5. Crear el Pull Request en GitHub.
+6. Esperar revision del equipo y ejecucion del workflow.
+7. Fusionar el Pull Request cuando no existan conflictos y las pruebas pasen.
 
 ## Plantilla de descripcion
 
@@ -126,10 +142,11 @@ Verificar que no se incluya `.env` ni archivos generados.
 
 ## Checklist de revision
 
-- [ ] Compilacion correcta.
-- [ ] Migraciones correctas.
-- [ ] Pruebas ejecutadas.
+- [ ] El sistema compila correctamente.
+- [ ] Las migraciones funcionan.
+- [ ] Las pruebas se ejecutan.
 - [ ] No se sube `.env`.
-- [ ] No se rompe inventario.
 - [ ] No se rompe ventas.
-- [ ] Permisos revisados.
+- [ ] No se rompe inventario.
+- [ ] Se revisan permisos.
+- [ ] Se actualiza documentacion si corresponde.

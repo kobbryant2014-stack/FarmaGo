@@ -1,17 +1,19 @@
 # Evidencias requeridas para la entrega academica
 
-Adjuntar estas capturas o evidencias al informe tecnico final:
+Adjuntar estas capturas al informe tecnico final:
 
-- Repositorio GitHub de FarmaGo.
-- Ramas `main` y `develop`.
-- Ramas `feature/*` creadas para modulos del sistema.
-- Pull Requests abiertos o cerrados.
-- Historial de commits con mensajes convencionales.
-- GitHub Actions ejecutado correctamente.
-- Archivo `.github/workflows/laravel-ci.yml`.
-- Release o tag `v1.0.0`.
-- Evidencia de conflicto resuelto.
-- Sistema FarmaGo funcionando en entorno local o de despliegue.
+- Captura del repositorio en GitHub.
+- Captura de ramas `main` y `develop`.
+- Captura de ramas `feature/*`.
+- Captura de rama `release/v1.0.0`.
+- Captura de rama `hotfix/correccion-readme`.
+- Captura de Pull Requests abiertos o cerrados.
+- Captura del historial de commits.
+- Captura de GitHub Actions ejecutado.
+- Captura del archivo `.github/workflows/laravel-ci.yml`.
+- Captura del tag o release `v1.0.0`.
+- Captura de conflicto resuelto.
+- Captura del sistema FarmaGo funcionando.
 
 ## Recomendacion de capturas
 

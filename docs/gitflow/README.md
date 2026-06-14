@@ -1,40 +1,50 @@
 # GitFlow en FarmaGo
 
-FarmaGo adopta GitFlow como flujo de trabajo academico para ordenar el desarrollo colaborativo, separar codigo estable de codigo en construccion y dejar evidencia verificable en GitHub mediante ramas, commits y Pull Requests.
+GitFlow es un modelo de trabajo con Git que organiza el desarrollo mediante ramas con responsabilidades claras. Su objetivo es separar la version estable, la integracion de cambios, las nuevas funcionalidades, las versiones candidatas y las correcciones urgentes.
 
-## Ramas principales
+FarmaGo aplica GitFlow para evidenciar el uso correcto de Git y GitHub en la evaluacion academica. Cada integrante puede trabajar en una rama especifica, registrar commits convencionales, abrir Pull Requests y validar los cambios con CI/CD antes de fusionarlos.
 
-| Rama | Uso en FarmaGo | Regla de integracion |
-| --- | --- | --- |
-| `main` | Contiene versiones estables del sistema FarmaGo listas para entrega academica o despliegue. | Solo recibe cambios desde `release/*` o `hotfix/*` mediante Pull Request aprobado. |
-| `develop` | Integra funcionalidades terminadas antes de preparar una version estable. | Recibe Pull Requests desde `feature/*`. |
-| `feature/*` | Implementa modulos o mejoras especificas: productos, inventario, ventas, compras, facturacion, reportes o auditoria. | Sale desde `develop` y vuelve a `develop` por Pull Request. |
-| `release/*` | Prepara una version candidata, corrige documentacion final y valida pruebas antes de publicar. | Sale desde `develop` y se integra a `main` y `develop`. |
-| `hotfix/*` | Corrige errores urgentes detectados en `main`, por ejemplo documentacion critica o fallos de configuracion. | Sale desde `main` y se integra a `main` y `develop`. |
+## Rama `main`
 
-## Integracion mediante Pull Requests
+La rama `main` representa la version estable de FarmaGo. Debe contener codigo listo para entrega academica o despliegue. No se debe trabajar directamente sobre esta rama; los cambios llegan mediante Pull Requests desde `release/*` o `hotfix/*`.
 
-Todo cambio debe integrarse mediante Pull Request para conservar trazabilidad. Cada PR debe indicar rama origen, rama destino, modulo afectado, cambios realizados, pruebas ejecutadas, evidencia y riesgos. La plantilla ubicada en `.github/pull_request_template.md` estandariza esta informacion.
+## Rama `develop`
 
-Antes de fusionar un PR se debe revisar:
+La rama `develop` funciona como rama de integracion. Recibe cambios terminados desde ramas `feature/*` y permite validar que los modulos trabajen correctamente antes de preparar una version estable.
 
-- Que el codigo compile correctamente.
-- Que las migraciones funcionen.
-- Que las pruebas automatizadas pasen.
-- Que no se suba `.env` ni archivos sensibles.
-- Que no se rompan los flujos de inventario, ventas ni permisos.
+## Ramas `feature/*`
+
+Las ramas `feature/*` se usan para desarrollar nuevos modulos o mejoras especificas. En FarmaGo pueden representar funcionalidades como productos, inventario, ventas, compras, facturacion, usuarios, reportes y auditoria. Cada rama `feature/*` nace desde `develop` y vuelve a `develop` mediante Pull Request.
+
+## Ramas `release/*`
+
+Las ramas `release/*` se usan para preparar versiones. En FarmaGo, `release/v1.0.0` permite validar documentacion, pruebas, configuracion CI/CD y ultimos ajustes antes de integrar la version academica en `main`.
+
+## Ramas `hotfix/*`
+
+Las ramas `hotfix/*` se usan para correcciones urgentes sobre la version estable. Por ejemplo, `hotfix/correccion-readme` puede corregir una instruccion critica del README publicada en `main`. Luego el cambio debe integrarse tambien a `develop`.
+
+## Pull Requests
+
+FarmaGo usa Pull Requests para integrar cambios de forma controlada. El flujo esperado es:
+
+1. Crear una rama desde `develop` o `main`, segun corresponda.
+2. Realizar commits convencionales.
+3. Subir la rama a GitHub.
+4. Abrir un Pull Request hacia la rama destino.
+5. Revisar cambios, pruebas, riesgos y evidencias.
+6. Fusionar solo cuando el Pull Request este aprobado y CI/CD finalice correctamente.
 
 ## Relacion con los modulos FarmaGo
 
-GitFlow permite dividir el trabajo del equipo por modulo:
-
-- `feature/productos`: mantenimiento de productos farmaceuticos.
-- `feature/inventario-lotes`: control de lotes, stock y vencimientos.
-- `feature/ventas-fefo`: ventas aplicando salida FEFO.
-- `feature/compras`: registro de compras y actualizacion de inventario.
+- `feature/dashboard`: panel principal y metricas del sistema.
+- `feature/productos`: catalogo de productos farmaceuticos.
+- `feature/inventario-lotes`: lotes, stock, vencimientos y Kardex.
+- `feature/ventas-fefo`: ventas con salida FEFO.
+- `feature/compras`: registro de compras y actualizacion de existencias.
 - `feature/facturacion-electronica`: comprobantes y datos tributarios.
-- `feature/roles-permisos`: usuarios, roles y autorizaciones.
-- `feature/reportes`: reportes operativos y administrativos.
-- `feature/auditoria`: trazabilidad de operaciones y cambios.
+- `feature/roles-permisos`: usuarios, roles y permisos.
+- `feature/reportes`: reportes de ventas, inventario y gestion.
+- `feature/auditoria`: trazabilidad de acciones importantes.
 
-Este flujo ayuda a que cada integrante trabaje en una rama aislada, solicite revision por Pull Request y deje historial de commits entendible para la evaluacion.
+Este flujo deja evidencia revisable de colaboracion, organizacion de ramas, Pull Requests, automatizacion y buenas practicas de gestion de codigo.

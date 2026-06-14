@@ -25,19 +25,25 @@ La descripcion debe ser corta, especifica y escrita en minusculas cuando sea pos
 ## Ejemplos aplicados a FarmaGo
 
 ```text
+feat: implementar modulo de productos
 feat: agregar control de lotes para productos
 feat: implementar venta con salida fefo
+feat: aplicar metodo fefo en ventas
 fix: corregir calculo de stock disponible
+fix: corregir validacion de stock en ventas
 fix: validar permisos al registrar compras
 docs: documentar flujo gitflow academico
+docs: documentar flujo GitFlow
 docs: actualizar instrucciones de ejecucion local
 test: agregar prueba de venta con inventario insuficiente
+test: agregar pruebas de inventario
 test: cubrir migracion de lotes vencidos
 refactor: mover calculo de ventas a servicio dedicado
 refactor: simplificar controlador de productos
 chore: actualizar dependencias npm
 chore: ordenar archivos de documentacion
 ci: agregar workflow laravel ci
+ci: agregar workflow Laravel CI
 ci: ejecutar pruebas en pull requests hacia develop
 ```
 
