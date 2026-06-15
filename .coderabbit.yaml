@@ -1,0 +1,12 @@
+﻿language: "es-ES"
+
+reviews:
+  profile: "chill"
+  high_level_summary: true
+  review_status: true
+  auto_review:
+    enabled: true
+    drafts: false
+
+chat:
+  auto_reply: true
