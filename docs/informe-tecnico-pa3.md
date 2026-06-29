@@ -144,6 +144,64 @@ Capturas sugeridas:
 - Vista de GitHub Actions en verde.
 - Estructura de carpetas `tests/Unit`, `tests/Feature/Orm` y `docs`.
 
+## Evidencias fotograficas sugeridas segun rubrica
+
+Para fortalecer la evaluacion en nivel sobresaliente, se recomienda adjuntar capturas de pantalla del codigo, del sistema en ejecucion y del repositorio GitHub. Cada captura debe incluir un titulo breve y una descripcion que explique que criterio de la rubrica evidencia.
+
+### Evidencia 1: Estructura del proyecto
+
+Captura sugerida: explorador de archivos o VS Code mostrando las carpetas `app/Services`, `tests/Unit`, `tests/Feature/Orm`, `docs` y `.github/workflows`.
+
+Descripcion para el informe: esta captura evidencia la organizacion del proyecto, la ubicacion de pruebas unitarias, pruebas ORM, documentacion tecnica y configuracion de integracion continua.
+
+### Evidencia 2: Codigo de la Kata TDD
+
+Captura sugerida: archivo `app/Services/VentaTotalCalculator.php`, mostrando el metodo `calcular()`, las validaciones de datos invalidos, el calculo de subtotal, descuento, IGV y total.
+
+Descripcion para el informe: esta captura evidencia la solucion de la Kata TDD relacionada con el calculo del total de venta farmaceutica con IGV.
+
+### Evidencia 3: Pruebas unitarias de la Kata
+
+Captura sugerida: archivo `tests/Unit/VentaTotalCalculatorTest.php`, mostrando pruebas de venta gravada, descuento, productos exonerados, productos inafectos y casos invalidos.
+
+Descripcion para el informe: esta captura evidencia el diseno e implementacion de pruebas unitarias con multiples escenarios, incluyendo casos correctos, casos limite y errores.
+
+### Evidencia 4: Pruebas ORM con Eloquent
+
+Captura sugerida: archivo `tests/Feature/Orm/FarmaGoOrmTest.php`, mostrando pruebas de creacion, lectura, actualizacion, eliminacion logica, relaciones y consultas con `with()`.
+
+Descripcion para el informe: esta captura evidencia el uso correcto de Eloquent ORM, relaciones entre modelos y consultas optimizadas mediante eager loading.
+
+### Evidencia 5: Ciclo Red-Green-Refactor documentado
+
+Captura sugerida: archivo `docs/tdd-red-green-refactor.md`, mostrando la tabla de iteraciones con columnas Red, Green y Refactor.
+
+Descripcion para el informe: esta captura evidencia que el desarrollo siguio el ciclo TDD completo y que las iteraciones fueron documentadas.
+
+### Evidencia 6: Ejecucion exitosa de pruebas
+
+Captura sugerida: terminal ejecutando `php artisan test`, mostrando el resultado `Tests: 41 passed (114 assertions)`.
+
+Descripcion para el informe: esta captura evidencia que las pruebas automatizadas se ejecutan correctamente y validan el comportamiento del sistema.
+
+### Evidencia 7: Sistema FarmaGo en ejecucion
+
+Captura sugerida: navegador abierto en `http://127.0.0.1:8000` o `http://127.0.0.1:8000/login`.
+
+Descripcion para el informe: esta captura evidencia que el sistema FarmaGo se ejecuta localmente y esta disponible para el usuario.
+
+### Evidencia 8: Repositorio GitHub
+
+Captura sugerida: pagina principal del repositorio `https://github.com/kobbryant2014-stack/FarmaGo`.
+
+Descripcion para el informe: esta captura evidencia que el codigo fuente fue subido a GitHub y gestionado mediante control de versiones.
+
+### Evidencia 9: GitHub Actions
+
+Captura sugerida: archivo `.github/workflows/tests.yml` o pestana Actions del repositorio mostrando ejecucion del workflow.
+
+Descripcion para el informe: esta captura evidencia la integracion de pruebas automatizadas en el flujo agil mediante integracion continua.
+
 ## Resultados obtenidos
 
 El proyecto queda preparado con pruebas automatizadas, documentacion TDD, kata implementada, evidencia ORM y workflow de integracion continua. Esto incrementa la confiabilidad y facilita futuras mejoras.
@@ -201,3 +259,32 @@ docs/informe-tecnico-pa3.md
 ```
 
 Enlace del repositorio GitHub: ______________________________
+
+## Anexos fotograficos para completar en Word
+
+Anexo 1: Estructura del proyecto FarmaGo.  
+[Pegar captura aqui]
+
+Anexo 2: Codigo de la Kata TDD `VentaTotalCalculator`.  
+[Pegar captura aqui]
+
+Anexo 3: Pruebas unitarias de la Kata TDD.  
+[Pegar captura aqui]
+
+Anexo 4: Pruebas ORM con Eloquent.  
+[Pegar captura aqui]
+
+Anexo 5: Tabla de iteraciones Red-Green-Refactor.  
+[Pegar captura aqui]
+
+Anexo 6: Ejecucion exitosa de `php artisan test`.  
+[Pegar captura aqui]
+
+Anexo 7: Sistema FarmaGo ejecutandose en navegador.  
+[Pegar captura aqui]
+
+Anexo 8: Repositorio GitHub del proyecto.  
+[Pegar captura aqui]
+
+Anexo 9: GitHub Actions o workflow de pruebas.  
+[Pegar captura aqui]

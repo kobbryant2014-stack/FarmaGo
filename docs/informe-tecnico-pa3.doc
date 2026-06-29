@@ -145,6 +145,64 @@ php artisan test --testsuite=Feature
 <ul><li>Vista de GitHub Actions en verde.</li></ul>
 <ul><li>Estructura de carpetas `tests/Unit`, `tests/Feature/Orm` y `docs`.</li></ul>
 <p>&nbsp;</p>
+<h2>Evidencias fotograficas sugeridas segun rubrica</h2>
+<p>&nbsp;</p>
+<p>Para fortalecer la evaluacion en nivel sobresaliente, se recomienda adjuntar capturas de pantalla del codigo, del sistema en ejecucion y del repositorio GitHub. Cada captura debe incluir un titulo breve y una descripcion que explique que criterio de la rubrica evidencia.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 1: Estructura del proyecto</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: explorador de archivos o VS Code mostrando las carpetas app/Services, tests/Unit, tests/Feature/Orm, docs y .github/workflows.</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia la organizacion del proyecto, la ubicacion de pruebas unitarias, pruebas ORM, documentacion tecnica y configuracion de integracion continua.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 2: Codigo de la Kata TDD</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: archivo app/Services/VentaTotalCalculator.php, mostrando el metodo calcular(), las validaciones de datos invalidos, el calculo de subtotal, descuento, IGV y total.</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia la solucion de la Kata TDD relacionada con el calculo del total de venta farmaceutica con IGV.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 3: Pruebas unitarias de la Kata</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: archivo tests/Unit/VentaTotalCalculatorTest.php, mostrando pruebas de venta gravada, descuento, productos exonerados, productos inafectos y casos invalidos.</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia el diseno e implementacion de pruebas unitarias con multiples escenarios, incluyendo casos correctos, casos limite y errores.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 4: Pruebas ORM con Eloquent</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: archivo tests/Feature/Orm/FarmaGoOrmTest.php, mostrando pruebas de creacion, lectura, actualizacion, eliminacion logica, relaciones y consultas con with().</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia el uso correcto de Eloquent ORM, relaciones entre modelos y consultas optimizadas mediante eager loading.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 5: Ciclo Red-Green-Refactor documentado</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: archivo docs/tdd-red-green-refactor.md, mostrando la tabla de iteraciones con columnas Red, Green y Refactor.</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia que el desarrollo siguio el ciclo TDD completo y que las iteraciones fueron documentadas.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 6: Ejecucion exitosa de pruebas</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: terminal ejecutando php artisan test, mostrando el resultado Tests: 41 passed (114 assertions).</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia que las pruebas automatizadas se ejecutan correctamente y validan el comportamiento del sistema.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 7: Sistema FarmaGo en ejecucion</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: navegador abierto en http://127.0.0.1:8000 o http://127.0.0.1:8000/login.</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia que el sistema FarmaGo se ejecuta localmente y esta disponible para el usuario.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 8: Repositorio GitHub</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: pagina principal del repositorio https://github.com/kobbryant2014-stack/FarmaGo.</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia que el codigo fuente fue subido a GitHub y gestionado mediante control de versiones.</p>
+<p>&nbsp;</p>
+<h3>Evidencia 9: GitHub Actions</h3>
+<p>&nbsp;</p>
+<p>Captura sugerida: archivo .github/workflows/tests.yml o pestana Actions del repositorio mostrando ejecucion del workflow.</p>
+<p>&nbsp;</p>
+<p>Descripcion para el informe: esta captura evidencia la integracion de pruebas automatizadas en el flujo agil mediante integracion continua.</p>
+<p>&nbsp;</p>
 <h2>Resultados obtenidos</h2>
 <p>&nbsp;</p>
 <p>El proyecto queda preparado con pruebas automatizadas, documentacion TDD, kata implementada, evidencia ORM y workflow de integracion continua. Esto incrementa la confiabilidad y facilita futuras mejoras.</p>
@@ -202,4 +260,33 @@ docs/informe-tecnico-pa3.md
 </pre>
 <p>&nbsp;</p>
 <p>Enlace del repositorio GitHub: ______________________________</p>
+<p>&nbsp;</p>
+<h2>Anexos fotograficos para completar en Word</h2>
+<p>&nbsp;</p>
+<p>Anexo 1: Estructura del proyecto FarmaGo.</p>
+<p>[Pegar captura aqui]</p>
+<p>&nbsp;</p>
+<p>Anexo 2: Codigo de la Kata TDD VentaTotalCalculator.</p>
+<p>[Pegar captura aqui]</p>
+<p>&nbsp;</p>
+<p>Anexo 3: Pruebas unitarias de la Kata TDD.</p>
+<p>[Pegar captura aqui]</p>
+<p>&nbsp;</p>
+<p>Anexo 4: Pruebas ORM con Eloquent.</p>
+<p>[Pegar captura aqui]</p>
+<p>&nbsp;</p>
+<p>Anexo 5: Tabla de iteraciones Red-Green-Refactor.</p>
+<p>[Pegar captura aqui]</p>
+<p>&nbsp;</p>
+<p>Anexo 6: Ejecucion exitosa de php artisan test.</p>
+<p>[Pegar captura aqui]</p>
+<p>&nbsp;</p>
+<p>Anexo 7: Sistema FarmaGo ejecutandose en navegador.</p>
+<p>[Pegar captura aqui]</p>
+<p>&nbsp;</p>
+<p>Anexo 8: Repositorio GitHub del proyecto.</p>
+<p>[Pegar captura aqui]</p>
+<p>&nbsp;</p>
+<p>Anexo 9: GitHub Actions o workflow de pruebas.</p>
+<p>[Pegar captura aqui]</p>
 </body></html>
