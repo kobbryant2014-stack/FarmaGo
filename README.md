@@ -1,147 +1,152 @@
 # FarmaGo - Sistema de Gestion Farmaceutica
 
-## Descripción
+## Descripcion del proyecto
 
-FarmaGo es una aplicación web profesional desarrollada en Laravel 10 para la gestión integral de farmacias y boticas. Permite administrar inventario por lotes, ventas con metodología FEFO, compras, reportes y control de usuarios.
+FarmaGo es una aplicacion web desarrollada en Laravel 10 para la gestion integral de farmacias y boticas. Permite administrar productos, categorias, lotes, compras, ventas, clientes, usuarios, kardex, reportes y control de inventario con enfoque FEFO.
+
+## Integrantes del equipo
+
+- Brady Palma Rodriguez
+- Anthony Luck Aliaga Navarro
+- Heather Belen Paulino Torres
+
+## Lider del equipo
+
+Completar: ______________________________
 
 ## Problema que resuelve
 
-El sistema soluciona el descontrol de stock, productos vencidos y falta de trazabilidad, automatizando el Kardex y las alertas de reposición.
+El sistema ayuda a reducir descontrol de stock, ventas con datos inconsistentes, productos vencidos y falta de trazabilidad en operaciones farmaceuticas.
 
-## Tecnologias utilizadas
+## Objetivos del proyecto
+
+- Gestionar productos farmaceuticos y categorias.
+- Controlar lotes, vencimientos y movimientos de inventario.
+- Registrar ventas y detalles de venta.
+- Generar reportes operativos.
+- Incorporar pruebas unitarias, TDD, ORM e integracion continua para el Producto Academico n. 3.
+
+## Tecnologias usadas
 
 - PHP 8.1+
 - Laravel 10
+- Eloquent ORM
+- PHPUnit 10
+- SQLite para pruebas automatizadas
+- MySQL/MariaDB para entorno local con XAMPP
 - Laravel Breeze
 - Spatie Laravel Permission
-- Blade
-- AdminLTE assets
-- Tailwind CSS y Vite
-- SQLite
-- PHPUnit
-- Laravel Pint
+- Blade, AdminLTE, Tailwind CSS y Vite
+- GitHub Actions
 
-2. **Configuración local en Windows:**
-   - El proyecto está configurado para usar SQLite localmente.
-   - Verifica que `.env` contenga:
-     ```text
-     DB_CONNECTION=sqlite
-     DB_DATABASE=C:\xampp\htdocs\FarmaGo\database\database.sqlite
-     ```
-   - Si no existe `.env`, copia `.env.example` a `.env`.
+## Instalacion
 
-3. **Instalar dependencias PHP:**
-   ```powershell
-   cd C:\xampp\htdocs\FarmaGo
-   composer install --no-interaction --prefer-dist
-   ```
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+```
 
-4. **Ejecutar migraciones y limpiar caches:**
-   ```powershell
-   php artisan migrate
-   php artisan optimize:clear
-   ```
+## Configuracion de base de datos
 
-5. **Acceso al sistema:**
-   - Inicia el servidor con:
-     ```powershell
-     php artisan serve --host=127.0.0.1 --port=8000
-     ```
-   - Abre en el navegador:
-     `http://127.0.0.1:8000`
+Para XAMPP/MySQL, crear una base de datos llamada `farmago` y configurar `.env`:
 
-> El proyecto también puede ejecutarse dentro de XAMPP, pero para este entorno local la configuración SQLite ya está lista.
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=farmago
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Metodologia agil aplicada
+Ejecutar migraciones y seeders:
 
-Se documento Scrum en la carpeta `docs/`, incluyendo roles, sprint goal, product backlog, sprint planning, review y retrospectiva.
+```bash
+php artisan migrate --seed
+```
 
-Documentos principales:
+## Ejecucion del sistema
 
-- `docs/01_metodologia_agil_scrum.md`
-- `docs/02_product_backlog.md`
-- `docs/03_sprint_1.md`
+```bash
+php artisan serve
+npm run dev
+```
 
-## Uso de IA generativa
+En XAMPP tambien puede accederse desde:
 
-Se utilizo IA generativa como apoyo para analizar el sistema, detectar riesgos, proponer refactorizaciones, generar vistas base, mejorar validaciones.
+```text
+http://localhost/FarmaGo/public
+```
 
-
-## Manejo de excepciones
-
-El sistema usa validaciones con FormRequest, transacciones en compras y ventas, `try/catch`, `report($e)` y mensajes amigables para el usuario.
-
-Documento:
-
-- `docs/05_manejo_excepciones.md`
-
-## Codigo limpio y refactorizacion
-
-La logica de negocio se organiza en servicios, los controladores coordinan peticiones y las validaciones se ubican en FormRequest. Se centralizo el calculo de ventas y se separo el Kardex por producto y por lote.
-
-Documento:
-
-- `docs/06_codigo_limpio_refactorizacion.md`
-
-## Pruebas
-
-Ejecutar pruebas automatizadas:
+## Ejecucion de pruebas
 
 ```bash
 php artisan test
 ```
 
-Ejecutar validaciones adicionales:
+Pruebas por suite:
+
+```bash
+php artisan test --testsuite=Unit
+php artisan test --testsuite=Feature
+```
+
+La configuracion de PHPUnit usa SQLite en memoria durante pruebas.
+
+## Enfoque TDD
+
+Se aplico el ciclo Red-Green-Refactor para la kata de calculo de venta y para validar reglas ORM. La evidencia esta en:
+
+- `docs/tdd-red-green-refactor.md`
+- `tests/Unit/VentaTotalCalculatorTest.php`
+
+## Kata TDD
+
+La kata implementada resuelve el calculo de total de venta farmaceutica con cantidad, precio unitario, descuento, afectacion tributaria e IGV. Documentacion:
+
+- `docs/kata-tdd.md`
+- `app/Services/VentaTotalCalculator.php`
+
+## ORM
+
+FarmaGo usa Eloquent ORM para productos, categorias, lotes, movimientos, clientes, ventas y detalles. Las pruebas validan CRUD, relaciones, scopes, eliminacion logica y consultas con eager loading:
+
+- `docs/orm.md`
+- `tests/Feature/Orm/FarmaGoOrmTest.php`
+
+## Integracion continua
+
+GitHub Actions ejecuta las pruebas en cada push o pull request:
+
+- `.github/workflows/tests.yml`
+
+## Flujo agil y ramas sugeridas
+
+- `main`: version estable.
+- `develop`: integracion del equipo.
+- `feature/tests-tdd`: pruebas unitarias y evidencia TDD.
+- `feature/orm`: pruebas y mejoras ORM.
+- `feature/kata-tdd`: kata de calculo de venta.
+
+Documento:
+
+- `docs/flujo-agil.md`
+
+## Documentacion academica PA3
+
+- `docs/informe-tecnico-pa3.md`
+- `docs/tdd-red-green-refactor.md`
+- `docs/kata-tdd.md`
+- `docs/orm.md`
+- `docs/flujo-agil.md`
+
+## Comandos utiles
 
 ```bash
 composer validate
-./vendor/bin/pint --test
+php artisan migrate:fresh --seed
+php artisan test
 npm run build
 ```
-
-Matriz de pruebas funcionales:
-
-- `docs/07_pruebas_funcionales.md`
-
-## Estructura del proyecto
-
-```text
-FarmaGo/
-|-- app/
-|   |-- Http/Controllers/
-|   |-- Http/Requests/
-|   |-- Models/
-|   `-- Services/
-|-- database/
-|   |-- migrations/
-|   `-- seeders/
-|-- docs/
-|-- public/
-|-- resources/
-|   |-- views/
-|   `-- css/
-|-- routes/
-|-- tests/
-|-- composer.json
-|-- package.json
-`-- README.md
-```
-
-- Guía de ejecución local: `INSTRUCCIONES_EJECUCION_LOCAL.md`
-
-## Evidencias para la rubrica
-
-- Aplicacion funcional: rutas, controladores y vistas principales conectadas.
-- Metodologia agil: documentos Scrum en `docs/`.
-- Uso de IA generativa: documento de apoyo con IA.
-- Manejo de excepciones: controladores, servicios y documentacion.
-- Codigo limpio: servicios, FormRequest y refactorizaciones.
-- Informe tecnico: `docs/08_informe_tecnico.md`.
-- Guion de video: `docs/09_guion_video.md`.
-- Repositorio Git: rama sugerida `adecuacion-rubrica`.
-
-## Autores Equipo de desarrollo FarmaGo.
-* Brady Palma Rodriguez
-* Anthony Luck Aliaga Navarro
-* Heather Belen Paulino Torres
-

@@ -1,0 +1,205 @@
+﻿<html><head><meta charset="utf-8"><style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;line-height:1.35;margin:72pt;}h1{text-align:center;font-size:18pt;}h2{font-size:15pt;margin-top:18pt;}h3{font-size:13pt;}code,pre{font-family:Consolas,monospace;font-size:10pt;}pre{background:#f2f2f2;padding:8pt;border:1px solid #ddd;}li{margin-bottom:4pt;}</style></head><body>
+<h1>Informe tecnico academico - Producto Academico n. 3</h1>
+<p>&nbsp;</p>
+<h2>Caratula referencial</h2>
+<p>&nbsp;</p>
+<p>Universidad Continental</p>
+<p>Asignatura: Construccion de Software</p>
+<p>Producto Academico n. 3</p>
+<p>Actividad: Pruebas Unitarias y TDD</p>
+<p>Proyecto: FarmaGo</p>
+<p>Integrantes: ______________________________</p>
+<p>Lider del equipo: _________________________</p>
+<p>Docente: _________________________________</p>
+<p>Fecha: ___________________________________</p>
+<p>&nbsp;</p>
+<h2>Introduccion</h2>
+<p>&nbsp;</p>
+<p>El presente informe describe la adaptacion del proyecto FarmaGo para incorporar pruebas unitarias, enfoque TDD, una kata de dominio, uso verificable de ORM e integracion continua. El objetivo es demostrar calidad tecnica mediante evidencias ejecutables y documentacion formal.</p>
+<p>&nbsp;</p>
+<h2>Descripcion del problema</h2>
+<p>&nbsp;</p>
+<p>Las farmacias requieren controlar productos, lotes, vencimientos, stock y ventas con trazabilidad. Sin pruebas automatizadas, los cambios en reglas de venta o inventario pueden generar errores de cobro, stock inconsistente o fallos en reportes.</p>
+<p>&nbsp;</p>
+<h2>Objetivo general</h2>
+<p>&nbsp;</p>
+<p>Implementar pruebas unitarias y de integracion con enfoque TDD en FarmaGo, validando reglas de negocio, persistencia ORM e integracion continua.</p>
+<p>&nbsp;</p>
+<h2>Objetivos especificos</h2>
+<p>&nbsp;</p>
+<ul><li>Crear pruebas automatizadas para reglas de calculo de venta.</li></ul>
+<ul><li>Documentar iteraciones Red-Green-Refactor.</li></ul>
+<ul><li>Resolver una kata TDD relacionada al dominio farmaceutico.</li></ul>
+<ul><li>Validar operaciones ORM con Eloquent.</li></ul>
+<ul><li>Configurar GitHub Actions para ejecutar pruebas automaticamente.</li></ul>
+<ul><li>Elaborar documentacion tecnica lista para entrega academica.</li></ul>
+<p>&nbsp;</p>
+<h2>Objetivos segun la actividad evaluativa</h2>
+<p>&nbsp;</p>
+<p>OBJ 01: El desarrollo de software contempla la metodologia TDD mediante Katas.</p>
+<p>&nbsp;</p>
+<p>OBJ 02: Se describen los programas desarrollados:</p>
+<p>&nbsp;</p>
+<ul><li>Codigo limpio para calculo de venta e IGV.</li></ul>
+<ul><li>Katas TDD expresadas mediante pruebas automatizadas.</li></ul>
+<p>&nbsp;</p>
+<p>OBJ 03: Se implementa ORM para gestionar datos del sistema FarmaGo.</p>
+<p>&nbsp;</p>
+<h2>Descripcion del proyecto FarmaGo</h2>
+<p>&nbsp;</p>
+<p>FarmaGo es una aplicacion web Laravel para gestion farmaceutica. Administra productos, categorias, lotes, compras, ventas, clientes, usuarios, kardex y reportes. Su dominio prioriza trazabilidad de inventario, control FEFO y gestion de ventas.</p>
+<p>&nbsp;</p>
+<h2>Planteamiento y descripcion detallada de la actividad</h2>
+<p>&nbsp;</p>
+<p>La actividad solicita desarrollar un proyecto de software con pruebas unitarias mediante el enfoque de Desarrollo Guiado por Pruebas (TDD). Durante el desarrollo se debe aplicar la metodologia Katas TDD para resolver problemas de forma iterativa y emplear tecnicas de mapeo Objeto-Relacional (ORM) para la gestion eficiente de datos.</p>
+<p>&nbsp;</p>
+<p>Para cumplir con el producto academico, el equipo debe presentar:</p>
+<p>&nbsp;</p>
+<ol><li>Un repositorio en GitHub con el codigo fuente gestionado adecuadamente.</li></ol>
+<ol><li>Un informe tecnico que describa la aplicacion de pruebas unitarias, el enfoque TDD, la resolucion de problemas mediante Katas TDD y el uso de ORM en la gestion de datos.</li></ol>
+<p>&nbsp;</p>
+<h2>Cumplimiento de las indicaciones para el desarrollo</h2>
+<p>&nbsp;</p>
+<ol><li>Formacion de equipos: el informe deja espacios para completar integrantes, lider del equipo y docente. El README registra los integrantes conocidos del proyecto.</li></ol>
+<ol><li>Definicion del proyecto: FarmaGo resuelve la gestion farmaceutica de productos, lotes, inventario y ventas.</li></ol>
+<ol><li>Dise&#241;o de pruebas unitarias: se implementaron pruebas unitarias para calculo de venta, IGV, descuentos y validaciones de datos.</li></ol>
+<ol><li>Aplicacion de TDD: se documento el ciclo Red-Green-Refactor en `docs/tdd-red-green-refactor.md`.</li></ol>
+<ol><li>Resolucion de problemas con Katas TDD: se desarrollo una kata de calculo de total de venta farmaceutica con IGV.</li></ol>
+<ol><li>Uso de ORM: se uso Eloquent ORM con modelos, relaciones, scopes, consultas filtradas y eager loading.</li></ol>
+<ol><li>Integracion de pruebas en el flujo agil: se propuso flujo de ramas y se configuro GitHub Actions.</li></ol>
+<ol><li>Documentacion y reporte: se elaboraron documentos tecnicos en `docs/`, incluyendo este informe.</li></ol>
+<ol><li>Entrega del proyecto: el proyecto queda listo para subirse a GitHub y entregar el informe en formato Word.</li></ol>
+<p>&nbsp;</p>
+<h2>Tecnologias utilizadas</h2>
+<p>&nbsp;</p>
+<ul><li>PHP 8.1 o superior.</li></ul>
+<ul><li>Laravel 10.</li></ul>
+<ul><li>Eloquent ORM.</li></ul>
+<ul><li>PHPUnit 10.</li></ul>
+<ul><li>SQLite en memoria para pruebas.</li></ul>
+<ul><li>MySQL/MariaDB en entorno local XAMPP.</li></ul>
+<ul><li>Blade, AdminLTE, Tailwind CSS y Vite.</li></ul>
+<ul><li>GitHub Actions.</li></ul>
+<p>&nbsp;</p>
+<h2>Dise&#241;o e implementacion de pruebas unitarias</h2>
+<p>&nbsp;</p>
+<p>Se implemento tests/Unit/VentaTotalCalculatorTest.php para cubrir casos correctos, descuentos, productos exonerados, productos inafectos, ventas vacias, cantidades invalidas y descuentos invalidos. La logica probada se encuentra en app/Services/VentaTotalCalculator.php.</p>
+<p>&nbsp;</p>
+<p>Las pruebas validan multiples escenarios:</p>
+<p>&nbsp;</p>
+<ul><li>Caso correcto: venta gravada con IGV.</li></ul>
+<ul><li>Caso limite: productos exonerados e inafectos sin IGV.</li></ul>
+<ul><li>Caso de negocio: descuento valido aplicado al item.</li></ul>
+<ul><li>Caso invalido: venta sin items.</li></ul>
+<ul><li>Caso invalido: cantidad cero o negativa.</li></ul>
+<ul><li>Caso invalido: descuento mayor al subtotal.</li></ul>
+<p>&nbsp;</p>
+<h2>Aplicacion del enfoque TDD Red-Green-Refactor</h2>
+<p>&nbsp;</p>
+<p>El ciclo se documento en docs/tdd-red-green-refactor.md. Primero se definieron pruebas que fallaban por ausencia de implementacion, luego se agrego el codigo minimo y finalmente se refactorizo la organizacion de reglas, validaciones y redondeos.</p>
+<p>&nbsp;</p>
+<h2>Desarrollo de Kata TDD</h2>
+<p>&nbsp;</p>
+<p>La kata seleccionada fue el calculo del total de venta farmaceutica con IGV. Esta kata extiende el ejemplo academico de calculo de IGV hacia el dominio FarmaGo: determinar subtotal, descuento, base gravada, exonerada, inafecta, IGV y total final.</p>
+<p>&nbsp;</p>
+<p>Proceso de la kata:</p>
+<p>&nbsp;</p>
+<ol><li>Se escribio una prueba para calcular IGV de una venta gravada.</li></ol>
+<ol><li>Se implemento el minimo codigo para obtener subtotal, IGV y total.</li></ol>
+<ol><li>Se agrego una prueba para descuentos.</li></ol>
+<ol><li>Se refactorizo el calculo para separar base gravada y descuento total.</li></ol>
+<ol><li>Se agregaron pruebas para exonerados e inafectos.</li></ol>
+<ol><li>Se reforzaron validaciones de datos vacios e invalidos.</li></ol>
+<p>&nbsp;</p>
+<h2>Uso de ORM en la gestion de datos</h2>
+<p>&nbsp;</p>
+<p>Se uso Eloquent para modelos como Producto, Categoria, Lote, MovimientoInventario, Cliente, Venta y DetalleVenta. Las pruebas en tests/Feature/Orm/FarmaGoOrmTest.php validan CRUD, eliminacion logica, relaciones, eager loading y scopes.</p>
+<p>&nbsp;</p>
+<p>Operaciones ORM validadas:</p>
+<p>&nbsp;</p>
+<ul><li>Creacion de productos.</li></ul>
+<ul><li>Lectura de relaciones `Producto-Categoria`.</li></ul>
+<ul><li>Actualizacion de precio y stock minimo.</li></ul>
+<ul><li>Eliminacion logica con SoftDeletes.</li></ul>
+<ul><li>Registro de venta y detalle.</li></ul>
+<ul><li>Carga anticipada de relaciones con `with()`.</li></ul>
+<ul><li>Consultas filtradas por scopes.</li></ul>
+<p>&nbsp;</p>
+<h2>Integracion de pruebas en el flujo agil</h2>
+<p>&nbsp;</p>
+<p>El flujo propuesto usa ramas main, develop, feature/tests-tdd, feature/orm y feature/kata-tdd. Cada cambio debe pasar por pruebas locales y GitHub Actions antes de integrarse.</p>
+<p>&nbsp;</p>
+<h2>Evidencias de ejecucion de pruebas</h2>
+<p>&nbsp;</p>
+<p>Comandos sugeridos:</p>
+<p>&nbsp;</p>
+<pre>
+php artisan test
+php artisan test --testsuite=Unit
+php artisan test --testsuite=Feature
+</pre>
+<p>&nbsp;</p>
+<p>Capturas sugeridas:</p>
+<p>&nbsp;</p>
+<ul><li>Ejecucion exitosa de `php artisan test`.</li></ul>
+<ul><li>Vista de GitHub Actions en verde.</li></ul>
+<ul><li>Estructura de carpetas `tests/Unit`, `tests/Feature/Orm` y `docs`.</li></ul>
+<p>&nbsp;</p>
+<h2>Resultados obtenidos</h2>
+<p>&nbsp;</p>
+<p>El proyecto queda preparado con pruebas automatizadas, documentacion TDD, kata implementada, evidencia ORM y workflow de integracion continua. Esto incrementa la confiabilidad y facilita futuras mejoras.</p>
+<p>&nbsp;</p>
+<p>Resultado de pruebas registrado:</p>
+<p>&nbsp;</p>
+<pre>
+Tests: 41 passed (114 assertions)
+</pre>
+<p>&nbsp;</p>
+<h2>Conclusiones</h2>
+<p>&nbsp;</p>
+<p>La incorporacion de TDD permite transformar reglas de negocio en pruebas ejecutables. Eloquent facilita expresar relaciones del dominio FarmaGo con claridad. La integracion continua reduce riesgos al validar cambios en cada push o pull request.</p>
+<p>&nbsp;</p>
+<h2>Recomendaciones</h2>
+<p>&nbsp;</p>
+<ul><li>Mantener la disciplina de escribir pruebas antes de nuevas reglas criticas.</li></ul>
+<ul><li>Agregar cobertura para controladores de ventas y compras.</li></ul>
+<ul><li>Usar pull requests con revision obligatoria.</li></ul>
+<ul><li>Registrar capturas de pruebas para anexos academicos.</li></ul>
+<p>&nbsp;</p>
+<h2>Bibliografia</h2>
+<p>&nbsp;</p>
+<ul><li>Beck, K. (2002). Test Driven Development: By Example. Addison-Wesley.</li></ul>
+<ul><li>Fowler, M. (2018). Refactoring: Improving the Design of Existing Code. Addison-Wesley.</li></ul>
+<ul><li>Laravel Documentation. Testing. https://laravel.com/docs/10.x/testing</li></ul>
+<ul><li>Laravel Documentation. Eloquent ORM. https://laravel.com/docs/10.x/eloquent</li></ul>
+<ul><li>PHPUnit Documentation. https://phpunit.de/documentation.html</li></ul>
+<p>&nbsp;</p>
+<h2>Anexos</h2>
+<p>&nbsp;</p>
+<p>Comandos utilizados:</p>
+<p>&nbsp;</p>
+<pre>
+composer install
+php artisan key:generate
+php artisan migrate --seed
+php artisan test
+npm install
+npm run build
+</pre>
+<p>&nbsp;</p>
+<p>Estructura del repositorio:</p>
+<p>&nbsp;</p>
+<pre>
+app/Services/VentaTotalCalculator.php
+tests/Unit/VentaTotalCalculatorTest.php
+tests/Feature/Orm/FarmaGoOrmTest.php
+docs/tdd-red-green-refactor.md
+docs/kata-tdd.md
+docs/orm.md
+docs/flujo-agil.md
+docs/informe-tecnico-pa3.md
+.github/workflows/tests.yml
+</pre>
+<p>&nbsp;</p>
+<p>Enlace del repositorio GitHub: ______________________________</p>
+</body></html>
