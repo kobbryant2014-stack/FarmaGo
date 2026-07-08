@@ -110,7 +110,14 @@ class VentaService
         $precioUnitario = (float) ($item['precio_unitario'] ?? $lote->producto->precio_venta);
         $descuento = $this->calcularDescuentoProporcional($item, $cantidad);
         $igvPorcentaje = (float) ($item['igv_porcentaje'] ?? $lote->producto->igv_porcentaje ?? 18);
-        $calculo = $this->calculator->calcularDetalle($cantidad, $precioUnitario, $descuento, $igvPorcentaje);
+        $afectacionTributaria = (string) ($item['afectacion_tributaria'] ?? $lote->producto->afectacion_tributaria ?? '10');
+        $calculo = $this->calculator->calcularDetalle(
+            $cantidad,
+            $precioUnitario,
+            $descuento,
+            $igvPorcentaje,
+            $afectacionTributaria
+        );
 
         DetalleVenta::create([
             'venta_id' => $venta->id,
@@ -122,7 +129,7 @@ class VentaService
             'subtotal' => $calculo['subtotal'],
             'unidad_venta' => $item['unidad_venta'] ?? 'unidad',
             'descuento' => $calculo['descuento'],
-            'afectacion_tributaria' => $item['afectacion_tributaria'] ?? $lote->producto->afectacion_tributaria ?? '10',
+            'afectacion_tributaria' => $afectacionTributaria,
             'igv' => $calculo['igv'],
             'total' => $calculo['total'],
         ]);

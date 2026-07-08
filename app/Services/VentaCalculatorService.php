@@ -10,7 +10,8 @@ class VentaCalculatorService
         float $cantidad,
         float $precioUnitario,
         float $descuento = 0,
-        float $igvPorcentaje = 18
+        float $igvPorcentaje = 18,
+        ?string $afectacionTributaria = null
     ): array {
         if ($cantidad <= 0) {
             throw new InvalidArgumentException('La cantidad vendida debe ser mayor a cero.');
@@ -30,16 +31,27 @@ class VentaCalculatorService
             throw new InvalidArgumentException('El descuento no puede ser mayor al subtotal.');
         }
 
-        $baseImponible = $this->roundMoney($subtotal - $descuento);
-        $igv = $this->roundMoney($baseImponible * ($igvPorcentaje / 100));
-        $total = $this->roundMoney($baseImponible + $igv);
+        $base = $this->roundMoney($subtotal - $descuento);
+        $afectacion = $afectacionTributaria ?? '10';
+        $igv = 0.0;
+        $total = $base;
+
+        if ($afectacion === '10') {
+            $igv = $this->roundMoney($base * ($igvPorcentaje / 100));
+            $total = $this->roundMoney($base + $igv);
+        } elseif ($afectacion === '20') {
+            $total = $this->roundMoney($base);
+        } elseif ($afectacion === '30') {
+            $total = $this->roundMoney($base);
+        }
 
         return [
             'cantidad' => $cantidad,
             'precio_unitario' => $this->roundMoney($precioUnitario),
             'subtotal' => $subtotal,
             'descuento' => $this->roundMoney($descuento),
-            'base_imponible' => $baseImponible,
+            'base_imponible' => $base,
+            'afectacion_tributaria' => $afectacion,
             'igv' => $igv,
             'total' => $total,
         ];
@@ -51,28 +63,43 @@ class VentaCalculatorService
             throw new InvalidArgumentException('La venta debe tener al menos un detalle.');
         }
 
-        $subtotal = 0;
-        $descuento = 0;
-        $gravado = 0;
-        $igv = 0;
-        $total = 0;
+        $subtotal = 0.0;
+        $descuento = 0.0;
+        $gravado = 0.0;
+        $exonerado = 0.0;
+        $inafecto = 0.0;
+        $igv = 0.0;
+        $total = 0.0;
 
         foreach ($detalles as $detalle) {
-            $subtotal += (float) $detalle['subtotal'];
-            $descuento += (float) $detalle['descuento'];
-            $gravado += (float) $detalle['base_imponible'];
-            $igv += (float) $detalle['igv'];
-            $total += (float) $detalle['total'];
+            $subtotal += (float) ($detalle['subtotal'] ?? 0);
+            $descuento += (float) ($detalle['descuento'] ?? 0);
+            $base = (float) ($detalle['base_imponible'] ?? 0);
+            $afectacion = (string) ($detalle['afectacion_tributaria'] ?? '10');
+
+            if ($afectacion === '20') {
+                $exonerado += $base;
+            } elseif ($afectacion === '30') {
+                $inafecto += $base;
+            } else {
+                $gravado += $base;
+            }
+
+            $igv += (float) ($detalle['igv'] ?? 0);
+            $total += (float) ($detalle['total'] ?? 0);
         }
+
+        $igv = $this->roundMoney($igv);
+        $total = $this->roundMoney($total);
 
         return [
             'subtotal' => $this->roundMoney($subtotal),
             'descuento_total' => $this->roundMoney($descuento),
             'gravado_total' => $this->roundMoney($gravado),
-            'exonerado_total' => 0,
-            'inafecto_total' => 0,
-            'igv_total' => $this->roundMoney($igv),
-            'total' => $this->roundMoney($total),
+            'exonerado_total' => $this->roundMoney($exonerado),
+            'inafecto_total' => $this->roundMoney($inafecto),
+            'igv_total' => $igv,
+            'total' => $total,
         ];
     }
 
